@@ -40,7 +40,17 @@ the changes are significant to be made sa highlighted to enable pyQt5 signal slo
     @pyqtSlot()
     def returnPressedSlot(self):
         pass
-    ``````self```
+    ```
+
+4. change these lines: from
+
+    ![screenshot](fileIO/changefromLine91.png)
+
+    **To**
+
+    ![screenshot](fileIO/changefromLine91toThis.png)
+
+5. run in terminal [```python3 mainwindow.py```](fileIO/mainwindow.py)
     **Resulting Error**
 
     ```bash
