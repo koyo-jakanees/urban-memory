@@ -1,9 +1,10 @@
-# Practice to tutorial follow along on PyQt5 file IO application.
+# Practice to tutorial follow along on PyQt5 file IO application
 
-### to understand Qt framework MVC implementation using PyQT5 
+## to understand Qt framework MVC implementation using PyQT5
 
 tutorial source [smithEdu](http://www.science.smith.edu/dftwiki/index.php/PyQt5_Tutorial:_A_Window_Application_with_File_IO)
 
+Personal prference to type word for word to help in futher internalising what is going around.
 feel free to dowload modify: Better yet check the original tutorial
 tweak the files.
 basic oop python knowledge is fit
@@ -14,6 +15,7 @@ As suggested in the original docs, after compiling the generated designer
 ```bash
 pyuic5 -x  *.ui -o *.py
 ```
+
 the changes are significant to be made sa highlighted to enable pyQt5 signal slots connections in the generated *.py file
 
 1. import section
@@ -38,20 +40,7 @@ the changes are significant to be made sa highlighted to enable pyQt5 signal slo
     @pyqtSlot()
     def returnPressedSlot(self):
         pass
-    ```
-
-4. modify the signal connect objets to inheriting from ```self``` not```MainWindow```
-5. As follows:
-   ![screenshot](fileIO/changefromLine91.png)
-    **To**
-    ![screenshot](fileIO/changefromLine91toThis.png)
-
-6. Error if thrown when the changes are not made accordingly on running the [```mainwindow.py```](fileIO/mainwindow.py) file
-
-   ```bash
-      python3 mainwindow.py
-    ```
-
+    ``````self```
     **Resulting Error**
 
     ```bash
@@ -67,7 +56,7 @@ the changes are significant to be made sa highlighted to enable pyQt5 signal slo
 
     ![compiled](fileIO/aftercompile.png)
 
-### Model-View-Controller:
+### Model-View-Controller
 
 Qt doesn't directly adhere to the MVC paradigm but explicitly explains its implementation as close to it using Controller-view where Model and control parts of the mvc concept is bundled under Controller and view part remains separately as the view .
 
