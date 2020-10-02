@@ -6,7 +6,7 @@ from QtPandas.QDataFrame import QDataFrame
 
 if __name__ == "__main__":
     app = QApplication()
-    df = pd.read_csv("data.csv")
+    df = pd.read_csv("all_months.csv")
     qdf = QDataFrame(df)
     qdf.show()
     sys.exit(app.exec_())
