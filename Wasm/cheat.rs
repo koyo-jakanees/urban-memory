@@ -244,8 +244,5 @@ fn main(){
     println!("{}", *ref_var2); // 6 , // var2 would not compile.
     // ref_var2 is of type &mut i32, so stores a reference to an i32, not the value.
     // var2 = 2; // this would not compile because `var2` is borrowed.
-    ref_var2; // no-op, but counts as a use and keeps the borrow active until here
-}
-
-
+    ref_var2; // no-op, but counts as a use and keeps the borrow active until here}
 }
