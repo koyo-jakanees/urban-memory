@@ -16,7 +16,7 @@ baseURL = "https://example.org/"
 languageCode = "en-us"
 defaultContentLanguage = "en-us"
 title = "Jakanees In the building"
-theme = "hugo-tranquilpeak-theme"
+theme = "tranquilpeak"
 disqusShortname = "jakanees"
 # googleAnalytics = "UA-123-45"
 paginate = 7
@@ -31,7 +31,7 @@ canonifyurls = true
   archive = "archives"
 
 [author]
-  name = "Davince Koyo"
+  name = "Nic Da Vince"
   bio = "Hails from the Capital city of Kenya and loves to code the small things **COOL**"
   job = "Geospatial Engineer"
   location = "Kenya"
