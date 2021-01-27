@@ -36,12 +36,13 @@ canonifyurls = true
   job = "Geospatial Engineer"
   location = "Kenya"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
-  gravatarEmail = "dakoyo094@gmail.com"
+  gravatarEmail = "davince.koyo@gmail.com"
   # Your profile picture
   # Overwritten by your gravatar image if `author.gravatarEmail` is filled
+  # author.gravatarEmail = "./resources/_gen/images/ballerina.png"
   picture = "https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png"
   # Your Twitter username without the @. E.g : thibaudlepretre
-  # twitter = "thibaudlepretre"
+  twitter = "koyo-jakanees"
   # Your google plus profile id. E.g : +ThibaudLepretre or 114625208755123718311
   # googlePlus = "+ThibaudLepretre"
 
@@ -82,7 +83,7 @@ canonifyurls = true
   identifier = "github"
   name = "GitHub"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-github\"></i>"
-  url = "https://github.com/kakawait"
+  url = "https://github.com/Nic-koyo"
 [[menu.links]]
   weight = 2
   identifier = "stackoverflow"
@@ -160,7 +161,7 @@ canonifyurls = true
   # Your favicon path, default is "/favicon.png"
   # favicon = "/favicon.png"
 
-  # Header configuration
+  # Header configurationa
   # The link at the right of the header is customizable
   # You can add a link (as an icon) at the right of the header instead of the author's gravatar image or author's picture.
   # By default, author's gravatar or author's picture is displayed.
@@ -170,7 +171,7 @@ canonifyurls = true
 
   # Display `Next` on left side of the pagination, and `Prev` on right side one.
   # If you set this value to `true`, these positions swap.
-  # swapPaginator = true
+  swapPaginator = true
 
   # Custom CSS. Put here your custom CSS files. They are loaded after the theme CSS;
   # they have to be referred from static root. Example
