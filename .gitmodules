@@ -1,3 +1,6 @@
 [submodule "SSG-hugo/quickstart/themes/ananke"]
 	path = SSG-hugo/quickstart/themes/ananke
 	url = https://github.com/budparr/gohugo-theme-ananke.git
+[submodule "SSG-hugo/anotherdemo/themes/tranquilpeak"]
+	path = SSG-hugo/anotherdemo/themes/tranquilpeak
+	url = https://github.com/kakawait/hugo-tranquilpeak-theme.git
