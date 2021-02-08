@@ -37,3 +37,8 @@ parser.add_argument(
 args = parser.parse_args()
 print(args.accumulate(args.integers))
 
+
+#######################################################
+#    Using Cllick  for CLI apps
+#####################################3################3
+
