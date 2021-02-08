@@ -3,9 +3,20 @@
 
 
 import argparse
+import textwrap
 
 # https://docs.python.org/3/library/argparse.html
-parser = argparse.ArgumentParser(description="Process integers via CLI")
+parser = argparse.ArgumentParser(
+    prog='Valhalla',
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    description=textwrap.dedent('''\
+...         Please do not mess up this text!
+...         --------------------------------
+...             I have indented it
+...             exactly the way
+...             I want it
+...         '''), 
+    epilog='A bar that foos')
 parser.add_argument(
     "integers",
     metavar="N",
@@ -25,3 +36,4 @@ parser.add_argument(
 
 args = parser.parse_args()
 print(args.accumulate(args.integers))
+
