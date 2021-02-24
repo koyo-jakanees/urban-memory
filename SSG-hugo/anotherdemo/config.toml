@@ -15,7 +15,7 @@
 baseURL = "https://example.org/"
 languageCode = "en-us"
 defaultContentLanguage = "en-us"
-title = "Jakanees In the building"
+title = "GeoFlexing"
 theme = "tranquilpeak"
 disqusShortname = "jakanees"
 # googleAnalytics = "UA-123-45"
@@ -35,12 +35,13 @@ canonifyurls = true
   bio = "Hails from the Capital city of Kenya and loves to code the small things **COOL**"
   job = "Geospatial Engineer"
   location = "Kenya"
+  picture = "https://avatars.githubusercontent.com/u/50481279?s=400&u=6884161eed7453108dfeb7079651aeaf1749f321&v=4.png"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
-  gravatarEmail = "davince.koyo@gmail.com"
+  # gravatarEmail = "davince.koyo@gmail.com"
   # Your profile picture
   # Overwritten by your gravatar image if `author.gravatarEmail` is filled
   # author.gravatarEmail = "./resources/_gen/images/ballerina.png"
-  picture = "https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png"
+  # picture = "https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png"
   # Your Twitter username without the @. E.g : thibaudlepretre
   twitter = "koyo-jakanees"
   # Your google plus profile id. E.g : +ThibaudLepretre or 114625208755123718311
@@ -83,13 +84,35 @@ canonifyurls = true
   identifier = "github"
   name = "GitHub"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-github\"></i>"
-  url = "https://github.com/Nic-koyo"
+  url = "https://github.com/koyo-jakanees"
+
 [[menu.links]]
   weight = 2
-  identifier = "stackoverflow"
-  name = "Stack Overflow"
-  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-stack-overflow\"></i>"
-  url = "https://stackoverflow.com/users/636472/kakawait"
+  identifier = "linkedin"
+  name = "Linkedin"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-linkedin\"></i>"
+  url = "www.linkedin.com/in/da-vince-koyo"
+
+# [[menu.links]]
+  # weight = 2
+  # identifier = "stackoverflow"
+  # name = "Stack Overflow"
+  # pre = "<i class=\"sidebar-button-icon fa fa-lg fa-stack-overflow\"></i>"
+  # url = "https://stackoverflow.com/users/636472/kakawait"
+
+[[menu.links]]
+  weight = 2
+  identifier = "quote"
+  name = "Quote"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-quote-left\"></i>"
+  url = "https://www.giscorps.org/testimonial/davince-koyo-nicodemus-kenya/"
+
+[[menu.links]]
+  weight = 2
+  identifier = "twitter"
+  name = "Twitter"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-twitter\"></i>"
+  url = "https://twitter.com/koyo_jakanees"
 
 [[menu.misc]]
   weight = 1
@@ -97,6 +120,7 @@ canonifyurls = true
   name = "RSS"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-rss\"></i>"
   url = "/index.xml"
+
 
 [params]
   # Customize date format use to render blog post date, categories and other
@@ -106,7 +130,7 @@ canonifyurls = true
   # dateFormat = "2 January 2006"
 
   # Global keywords configuration. Following keywords will be add to every pages
-  keywords = ["development", "next-gen", "python"]
+  keywords = ["development", "next-gen", "python", "Geospatial", "Rust"]
 
   # Syntax highlighter, possible choice between: "highlight.js" (recommanded) and "prism.js" (experimental)
   # You can comment it to disable syntax highlighting
@@ -119,9 +143,10 @@ canonifyurls = true
   # If false it will flat categories.
   hierarchicalCategories = true
 
-  description = "New rfersh of my site"
+  description = "Still figuring this site out"
 
   # Customization
+  #  https://unsplash.com/photos/nLcuPaiAiXY?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink
   # Define the behavior of the sidebar
   # 1: Display extra large sidebar on extra large screen, large sidebar on large screen,
   #    medium sidebar on medium screen and header bar on small screen and
@@ -134,7 +159,7 @@ canonifyurls = true
   #    large sidebar is swiped on all lower screens
   # 5: Display header bar on all screens and large sidebar is swiped on large screen
   # 6: Display header bar on all screens and medium sidebar is swiped
-  sidebarBehavior = 1
+  sidebarBehavior = 6
 
   # Your blog cover picture. I STRONGLY recommend you to use a CDN to speed up loading of pages.
   # There is many free CDN like Cloudinary or you can also use indirectly
@@ -159,7 +184,7 @@ canonifyurls = true
   autoThumbnailImage = true
 
   # Your favicon path, default is "/favicon.png"
-  # favicon = "/favicon.png"
+  favicon = "./resources/_gen/images/koyo.png"
 
   # Header configurationa
   # The link at the right of the header is customizable
@@ -208,8 +233,8 @@ canonifyurls = true
     url = "/#about"
 
   # Customize link of author avatar in sidebar
-  # [params.sidebar.profile]
-  #   url = "/#about"
+  [params.sidebar.profile]
+    url = "/#about"
 
   # Customize copyright value "© 2017 <CUSTOMIZATION>. All Rights "
   # [params.footer]

@@ -6,6 +6,9 @@ thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/video-integration-showcase/peak-
 categories:
 - tranquilpeak
 - features
+- videos
+- showcase
+- geo
 tags:
 - videos integration
 - youtube
