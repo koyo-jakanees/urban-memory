@@ -22,3 +22,7 @@ echo $0
 # done
 # NVIDIA Tao NGC Mozilla Common voice Nvidia merlin, maxine, Triton(inference)
 # NVIDIA Drive, AV, Orin, hyperion
+
+# Counting lines using grep short hand
+# https://opensource.com/article/21/4/gawk-letter-game?utm_campaign=intrel
+grep  '^[a-z]*$' /usr/share/dict/words >> words.txt

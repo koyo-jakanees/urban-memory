@@ -121,3 +121,29 @@ echo ${REP[@]/#Hello/this side}
 
 # Replace occurrence of substring at the end of $STRING
 echo ${REP[@]/%whoo/$(date +%Y-%M-%d)}
+echo "return status: $?"
+# Logical decision making construct
+# if [expression]; then 
+#     do something
+# fi
+
+NAME="John"
+if [ "$NAME" = "John" ]; then
+    echo "True that my name is Indeed $NAME"
+    # expand using an else expression
+else
+    echo "Sorry Wrong"
+    echo "My name is actually Bill"
+fi
+
+# further using 'elif expansion'
+NAME=$5
+if [ "$NAME" = "John" ]; then
+    echo "True that my name is Indeed $NAME"
+    # expand using an else expression
+elif [ "$NAME" = "Deil" ]; then
+    echo "True That, I am Gloria ${NAME}"
+else
+    echo "Sorry Wrong"
+    echo "This leaves us with Akwabba"
+fi
