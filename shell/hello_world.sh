@@ -61,6 +61,7 @@ done
 
 #  operatons
 # Basic operators on numbers
+# --------------------------- #
 # a + b addition
 # a - b substraction
 # a * b multiplicaton
@@ -69,6 +70,7 @@ done
 #  a ** b exponentiation
 
 # String Operations.
+# ---------------------------- #
 #  string length
 
 STRING="This is another useless string for demonstration"
@@ -122,7 +124,9 @@ echo ${REP[@]/#Hello/this side}
 # Replace occurrence of substring at the end of $STRING
 echo ${REP[@]/%whoo/$(date +%Y-%M-%d)}
 echo "return status: $?"
+
 # Logical decision making construct
+# ---------------------------------- #
 # if [expression]; then 
 #     do something
 # fi
@@ -185,3 +189,101 @@ fi
         # command...
     # ;;
 # esac
+mycase=1
+case $mycase in
+    1) echo "You selected ${SHELL}";;
+    2) echo "You selected perl";;
+    3) echo "You selected python";;
+    4) echo "You selected c++";;
+    5) exit
+esac
+
+# Looping constructs.
+# ------------------ #
+# basics
+# for arg in [list] ;
+# do
+#   command(s)....
+# done
+# For loops
+# --------------------- #
+# Loop on an array members
+NAMES=(Joe Jenne Sara Tony Trinity)
+for N in ${NAMES[@]} ; do
+    echo "My name is $N"
+done
+
+# loop on command output results
+# for f in $( ls prog.sh /etc/localtime ) ; do
+#   echo "File is : $f"
+# done
+
+# While loops
+# ------------------------- #
+# while [ condition ]
+# do
+#   command(s)...
+# done
+COUNT=4
+while [ $COUNT -gt 0 ] ; do
+    echo "Value of count is: $COUNT"
+    COUNT=$(($COUNT - 1))
+done
+
+# Until loops
+# ------------------------------ #
+# until [ conditoin ]
+# do
+#   command(s)...
+# done
+COUNTO=0
+until [ $COUNTO -gt 5 ] ; do
+    echo "Value of counto is: $COUNTO"
+    COUNTO=$(($COUNTO + 1))
+done
+
+# Controlling loops
+# --------------------------------- #
+# 'break' and 'continue' statemenst to control while and until
+# loop constructs
+
+# Example 1
+COUNT1=0
+while [ $COUNT1 -ge 0 ] ; do
+    echo "Count Value is: $COUNT1"
+    COUNT1=$(($COUNT1 + 1))
+    if [ $COUNT1 -ge 5 ] ; then
+        break
+    fi
+done
+
+# Prints out only odd numbers - 1,3,5,7,9
+COUNT=0
+while [ $COUNT -lt 10 ]; do
+    COUNT=$((COUNT+1))
+    # Check if COUNT is even
+    if [ $(($COUNT % 2)) = 0 ] ; then
+        continue
+    fi
+    echo $COUNT
+done
+
+# you will need to loop through and print out all even numbers from the numbers list in the sam
+# they are received. Don't print any numbers that come after 237 in the sequence.
+NUMBERS=(951 402 984 651 360 69 408 319 601 485 980 507 725 547 544 615 83 165 141 501 263 617 865 575 219 390 237 412 566 826 248 866 950 626 949 687 217 815 67 104 58 512 24 892 894 767 553 81 379 843 831 445 742 717 958 609 842 451 688 753 854 685 93 857 440 380 126 721 328 753 470 743 527)
+
+# write your code here
+for N in ${NUMBERS[@]} ; do
+    if [ $(($N % 2)) = 0 ] ; then
+        echo $N
+    elif [ $N = 237 ] ; then
+        break
+    fi
+done
+
+# Array comparison
+# -------------- #
+# Array is a variable containing multiple values
+# There is no maximum limit to the size of an array, 
+# nor any requirement that member variables be indexed or assigned contiguously. 
+# Arrays are zero-based: the first element is indexed with the number 0.
