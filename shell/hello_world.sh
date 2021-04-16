@@ -147,3 +147,41 @@ else
     echo "Sorry Wrong"
     echo "This leaves us with Akwabba"
 fi
+
+# Types of Numeric comparisons
+# ------------------------------- #
+# comparison  Evaluated to true when
+# $a -lt $b     $a < $b
+# $a -gt $b     $a > $b
+# $a -le $b     $a <= $b
+# $a -ge $b     $a >= $b
+# $a -eq $b     $a == $b
+# $a -ne $b     $a != $b
+# 
+# String comparisons
+# ----------------------------------- #
+# "$a" = "$b"    $a is the same as $b
+# "$a" == "$b"   $a is the same as $b
+# "$a" != "$b"   $a is different from $b
+# -z "$a"        $a is empty
+# 
+# note:   whitespace around `=` is required
+        # use "" double quotes around string variables to avoid
+        # shell expansion of special characters as *
+# 
+# Logical combinations
+# ------------------------------------- #
+# if <a href='/en/_%24VAR_A_-eq_1_%26%26_%28%24VAR_B_%3D_%22bee%22_'>| $VAR_T = "tee") </a> ; then
+    # command. here..
+# fi
+# 
+# Case Structure
+# -------------------------------------- #
+# case "$variable" in
+    # "$condition1" )
+        # command...
+    # ;;
+    # "$condition2" )
+        # command...
+    # ;;
+# esac
