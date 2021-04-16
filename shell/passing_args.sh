@@ -20,4 +20,5 @@ echo $0
 # f) FORMAT=${OPTARG};;
 # esac
 # done
-# NVIDIA Tao NGC Mozilla Common voice Nvidia merlin, maxine
+# NVIDIA Tao NGC Mozilla Common voice Nvidia merlin, maxine, Triton(inference)
+# NVIDIA Drive, AV, Orin, hyperion
