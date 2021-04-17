@@ -332,3 +332,77 @@ for i in "${c[@]}" ; do
     done
 done
 echo "matching elem are: ${j[@]}"
+
+# Shell functions
+# A function is a subroutine that implements a set of 
+# commands and operations. It is useful for repeated tasks.
+# basic structure
+# function func_name{
+    # command(s)...
+# } or
+# function func_name(){
+    # command(s)...
+# } or 
+# func_name(){
+    # command(s)...
+# }
+
+function_B () {
+    echo "Function B."
+}
+function_A () {
+    echo "$1"
+}
+adder () {
+    echo "$(($1 + $2))"
+}
+
+# FUNCTION CALLS
+# Pass parameter to function A
+function_A "Function A."     # Function A.
+function_B                   # Function B.
+# Pass two parameters to function adder
+adder 12 56                  # 68
+
+# you will need to write a function called ENGLISH_CALC which can process 
+# sentences such as:
+# '3 plus 5', '5 minus 1' or '4 times 6' and print the results as: 
+# '3 + 5 = 8', '5 - 1 = 4' or '4 * 6 = 24' respectively.
+
+function plus {
+    echo "sum of $1 and $2 is:"
+    echo "$(($1 + $2))"
+}
+function minus {
+    echo "difference between $1 and $2 is:"
+    echo "$(($1 - $2))"
+}
+function times {
+    echo "multiplication of $1 and $2 is:"
+    echo "$(($1 * $2))"
+}
+# Testing implicit function above
+plus 3 5
+minus 4 8
+times 7 9
+
+# explicit implementation
+ENGLISH_CALC () {
+    a=$1
+    b=$3
+    signn=$2
+    if [ $signn == "plus" ]; then
+        echo "$a + $b = $(($a+$b))"
+    elif [ $signn == "minus" ]; then
+        echo "$a - $b = $(($a-$b))"
+    elif [ $signn == "times" ]; then
+      echo "$a * $b = $(($a*$b))"
+    fi
+}
+
+# testing code
+ENGLISH_CALC 3 plus 5
+ENGLISH_CALC 5 minus 1
+ENGLISH_CALC 4 times 6
+
+# Special functions
