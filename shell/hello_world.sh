@@ -84,7 +84,9 @@ expr index "$STRING" "$SUBSTRING"
 # string slicing
 POS=3
 LEN=4
+echo "string slicing at a specific position and length"
 echo ${STRING:$POS:$LEN}
+echo "Slicing at the 20th elem"
 echo ${STRING:20}
 
 # Data extract example
@@ -287,3 +289,46 @@ done
 # There is no maximum limit to the size of an array, 
 # nor any requirement that member variables be indexed or assigned contiguously. 
 # Arrays are zero-based: the first element is indexed with the number 0.
+
+# Basic struct
+# array=(value1 value2 ... valueN)
+# array indexing
+
+array1=(34 56 23 45 65 45 21 08 7 789 89 09)
+echo "the 4th elem: ${array1[3]}"
+
+# retun all the array values
+echo "All array elem are: ${array1[@]}"
+
+# To evaluate the size/number of elem
+echo "The size of the array: ${#array1[@]}"
+
+# you will need to compare three list of arrays and write the common elements 
+# of all the three arrays: result is the common element 5.
+
+# initialize the array
+a=(3 5 8 10 6)
+b=(6 5 4 12)
+c=(14 7 5 7)
+
+# compare the first two arrays a & b
+for x in "${a[@]}"; do
+    in=false
+    for y in "${b[@]}" ; do
+        if [ $x = $y ] ; then
+            # assigning matching result new array z
+            z[${#z[@]}]=$x
+        fi
+    done
+done
+# compare the 3rd array c with new array z
+for i in "${c[@]}" ; do
+    in=false
+    for k in "${z[@]}" ; do
+        if [ $i = $k ] ; then
+            # assign the results to a new array j
+            j[${#j[@]}]=$i
+        fi
+    done
+done
+echo "matching elem are: ${j[@]}"
