@@ -441,3 +441,19 @@ func0 () {
 
 func we are just a bunch of arguments here
 func0 we are just a bunch of arguments here
+
+# Catching special signal/interruption/user input to prevent upredictable
+# using bash `trap` command
+
+# notice you cannot make Ctrl-C work in this shell, 
+# try with your local one, also remeber to chmod +x 
+# your local .sh file so you can execute it!
+
+trap "echo Booh!" $SIGINT SIGTERM
+echo "It's going to run untill you hit ctrl+z"
+echo "hit Ctrl+C to be blown away"
+
+while true
+do
+    sleep 10
+done
