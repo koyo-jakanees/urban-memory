@@ -415,3 +415,29 @@ ENGLISH_CALC 4 times 6
 # $$ - The process ID of the current shell. For shell scripts, this is the process ID under which they are executing.|
 # $! - The process number of the last background command.|
 
+echo "Script name is : $0"
+func () {
+    for var in $* ;
+    do
+        let i=i+1
+        echo "the \$${i} argument is: ${var}"
+    done
+    echo " Total count of arguments: $#"
+}
+
+# $@ and $* have different behavior when enclosed in double quotes
+func0 () {
+    echo " --- \"\$*\" ---"
+    for arg in "$*" ;
+    do
+        echo $arg
+    done
+    echo " --- \"\$@\" ---"
+    for arg in "$@" ;
+    do
+        echo $arg
+    done
+}
+
+func we are just a bunch of arguments here
+func0 we are just a bunch of arguments here
