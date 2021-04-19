@@ -457,3 +457,8 @@ while true
 do
     sleep 10
 done
+
+# SIGINT: user sends an interrupt signal (Ctrl+C)
+# SIGQUIT: user sends a quit signal (Ctrl+C)
+# SIGFPE: attempted an illegal mathematical operation
+# `kill -l` lists out all signal types
