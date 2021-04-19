@@ -441,3 +441,50 @@ func2 () {
 }
 
 func2 we are a group of arguments
+echo "Script name is : $0"
+func () {
+    for var in $* ;
+    do
+        let i=i+1
+        echo "the \$${i} argument is: ${var}"
+    done
+    echo " Total count of arguments: $#"
+}
+
+# $@ and $* have different behavior when enclosed in double quotes
+func0 () {
+    echo " --- \"\$*\" ---"
+    for arg in "$*" ;
+    do
+        echo $arg
+    done
+    echo " --- \"\$@\" ---"
+    for arg in "$@" ;
+    do
+        echo $arg
+    done
+}
+
+func we are just a bunch of arguments here
+func0 we are just a bunch of arguments here
+
+# Catching special signal/interruption/user input to prevent upredictable
+# using bash `trap` command
+
+# notice you cannot make Ctrl-C work in this shell, 
+# try with your local one, also remeber to chmod +x 
+# your local .sh file so you can execute it!
+
+trap "echo Booh!" $SIGINT SIGTERM
+echo "It's going to run untill you hit ctrl+z"
+echo "hit Ctrl+C to be blown away"
+
+while true
+do
+    sleep 10
+done
+
+# SIGINT: user sends an interrupt signal (Ctrl+C)
+# SIGQUIT: user sends a quit signal (Ctrl+C)
+# SIGFPE: attempted an illegal mathematical operation
+# `kill -l` lists out all signal types
