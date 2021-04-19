@@ -414,4 +414,30 @@ ENGLISH_CALC 4 times 6
 # $? - The exit status of the last command executed.|
 # $$ - The process ID of the current shell. For shell scripts, this is the process ID under which they are executing.|
 # $! - The process number of the last background command.|
+# $@ and $* have diff behaviour when enclosed with ""
+echo "script name: $0"
 
+function func {
+    for var in $* ; do
+        let i=i+1
+        echo "the \$${i} argument is: ${var}"
+    done
+    echo "total count of arguments $#"
+}
+
+func we are a group of arguments
+
+func2 () {
+    echo "--- \"\$*\""
+    for arg in "$*" ;
+        do
+            echo $arg
+        done
+    echo "--- \"\$@\""
+    for arg in "$@" ;
+        do
+            echo $arg
+        done
+}
+
+func2 we are a group of arguments
