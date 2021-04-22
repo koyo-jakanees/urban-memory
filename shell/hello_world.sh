@@ -475,6 +475,37 @@ func0 we are just a bunch of arguments here
 # try with your local one, also remeber to chmod +x 
 # your local .sh file so you can execute it!
 
+# trap "echo Booh!" $SIGINT SIGTERM
+# echo "It's going to run untill you hit ctrl+z"
+# echo "hit Ctrl+C to be blown away"
+
+# while true
+# do
+#     sleep 10
+# done
+
+# SIGINT: user sends an interrupt signal (Ctrl+C)
+# SIGQUIT: user sends a quit signal (Ctrl+C)
+# SIGFPE: attempted an illegal mathematical operation
+# `kill -l` lists out all signal types
+
+# Testing on file system script is running.
+# ----------------------------------------------#
+# `-command`>  [fliename]
+# [filename1] `-command`> [filename2]
+# use `-e` to test if file exists
+
+filename="./counrlines_awk.sh"
+if [ -e "filename" ] ; then
+    echo "$filename exists as a file"
+fi
+
+# use `-d` to test if directory exists
+directory_name="../img/"
+if [ -d "$directory_name" ] ; then
+    echo  "$directory_name exist as directory"
+fi
+
 trap "echo Booh!" $SIGINT SIGTERM
 echo "It's going to run untill you hit ctrl+z"
 echo "hit Ctrl+C to be blown away"
@@ -483,8 +514,3 @@ while true
 do
     sleep 10
 done
-
-# SIGINT: user sends an interrupt signal (Ctrl+C)
-# SIGQUIT: user sends a quit signal (Ctrl+C)
-# SIGFPE: attempted an illegal mathematical operation
-# `kill -l` lists out all signal types
