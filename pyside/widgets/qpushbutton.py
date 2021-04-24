@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import (
     QPushButton
 )
 from PyQt5.QtCore import pyqtSlot
+
 class BtnWindow(QWidget):
     """create our gui constructs."""
     

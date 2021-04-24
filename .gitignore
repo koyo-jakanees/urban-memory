@@ -10,3 +10,4 @@ thumbs.db
 venv/
 .env/
 target/
+shell/db_backup.*
