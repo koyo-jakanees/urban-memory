@@ -95,3 +95,8 @@ from qtpy import QtGui, QtWidgets, QtCore  # imports PySide2.
  the coding standard for the libraries varies from a mor pythonic code style as both uses Qt and C++ camel case
 
  while pythonic libraries lean towards use of underscores. In order to avoid confusion, qt derived classes or function I'll follow the qt/C++ coding style, while more pythonic functions to follow PEP8
+
+ **UPDATE**
+ ------
+
+Differences in current versions TL:DR [PyQt6 Vs PySide6](https://www.mfitzp.com/news/pyqt6-vs-pyside6)
