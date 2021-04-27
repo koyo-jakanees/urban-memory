@@ -100,3 +100,38 @@ from qtpy import QtGui, QtWidgets, QtCore  # imports PySide2.
  ------
 
 Differences in current versions TL:DR [PyQt6 Vs PySide6](https://www.mfitzp.com/news/pyqt6-vs-pyside6)
+
+1. **Namespaces & Enums**
+
+   > One of the major changes introduced for PyQt6 is    the need to use fully qualified names for enums and    flags. Previously, in both PyQt5 and PySide2 you    could make use of shortcuts -- for example Qt.   DecorationRole, Qt.AlignLeft. In PyQt6 these are now    Qt.ItemDataRole.DisplayRole and Qt.Alignment.   AlignLeft respectively. This change affects all enums    and flag groups in Qt. In PySide6 both long and short    names remain supported.
+   > The situation is complicated somewhat by the fact    that PyQt6 and PySide6 use subtly different naming    conventions for flags. In PySide6 (and v5) flags are    grouped under flag objects with the "Flag" suffix,    for example Qt.AlignmentFlag -- the align left flag is Qt.AlignmentFlag.AlignLeft. The same flag group in    PyQt6 is named just "Qt.Alignment". This means that    you can't simply choose long or short form and retain    compatibility between PyQt6 & PySide6.
+
+2. **UI Files**
+
+```python
+#in PyQt6: check loadUI
+import sys
+from PyQt6 import QtWidgets, uic
+
+app = QtWidgets.QApplication(sys.argv)
+
+window = uic.loadUi("mainwindow.ui")
+window.show()
+app.exec()
+```
+
+>The equivalent with PySide6 is one line longer, since you need to create a QUILoader object first. Unfortunately the API of these two interfaces is different too (.load vs .loadUI).
+
+```python
+# in PySide6: check load
+import sys
+from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtUiTools import QUiLoader
+
+loader = QUiLoader()
+
+app = QtWidgets.QApplication(sys.argv)
+window = loader.load("mainwindow.ui", None)
+window.show()
+app.exec_()
+```
