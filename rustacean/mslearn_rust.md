@@ -38,4 +38,4 @@ some of the **cargo** functionalities:
 
 - create new project templates with the `cargo new` command
 - Build a project with the `cargo build` command.
-- Build and run a project with the `cargo run` command
+- Build and run a project with the `cargo run` commands
