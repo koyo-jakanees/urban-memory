@@ -27,3 +27,15 @@ Rust Pros offers.
 - **Minimal runtime**:
     Very minimal and optimal runtime. It has no garbage collector to manage memory efficiently. Most similar to C & C++.
 
+To install rust visit [here](https://rustup.rs/), or directly run this in  your terminal 
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Use `rustc` compiler for simple programs. For bigger projects, the build tool and dependency manager `cargo` suits better.
+
+some of the **cargo** functionalities:
+
+- create new project templates with the `cargo new` command
+- Build a project with the `cargo build` command.
+- Build and run a project with the `cargo run` command
