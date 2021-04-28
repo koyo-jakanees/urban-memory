@@ -1,4 +1,4 @@
-# Introduction to *Rust*
+# Introduction to Rust
 
 Rust as a safe alternativ to existing systems software languages like C and C++. Like the well known languags in the space rust doesn't have large runtime of garbage collector, which contrasts it with almost all other modern languages.
 
@@ -9,6 +9,11 @@ A unique balance among perfomance, safety and implementation expressions.
 Patience Patience!! Rust requires bit of theoretical knowledge before you start writing productive Rust Code.
 
 An open-source, systems programming language that helps write faster, more reliable software. It offers control over low-level details like memory usage in combination with high-level concepts like iterations and interfaces.
+
+It useful for both low-level and high-level types of develoment
+`rustup` tool used to set up a development environment in rust
+`rustc` used to write and compile rust programs
+`cargo` start new project template, build and run rust programs
 
 Rust Pros offers.
 
@@ -53,6 +58,8 @@ cargo new NameOfProject
 This cmd generates a new dir with the given name with a src directory and two files:
 
 ```sh
+cd hello-cargo
+tree .
 ├── Cargo.toml
 └── src
     └── main.rs
@@ -77,7 +84,7 @@ fn main() {
 [package]
 name = "hello-cargo"
 version = "0.1.0"
-authors = ["git local name <yourmail.com>"]
+authors = ["Your Name <you@example.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -100,3 +107,28 @@ sample output of the commands above,
      Running `target/debug/hello-cargo`
 Hello, world!
 ```
+for indepth coverage
+[cargo book](https://doc.rust-lang.org/cargo/guide/why-cargo-exists.html)
+>Cargo is the Rust package manager. It is a tool that allows Rust packages to declare their various dependencies and ensure that you’ll always get a repeatable build.
+
+>To accomplish this goal, Cargo does four things:
+
+> - Introduces two metadata files with various bits of package information.
+>  - Fetches and builds your package’s dependencies.
+>  - Invokes rustc or another build tool with the correct parameters to build your package.
+>  - Introduces conventions to make working with Rust packages easier.
+
+The `cargo run` cmd combines two process i.e `cargo build` to generate/compile the binary [binary crate](https://doc.rust-lang.org/cargo/appendix/glossary.html#crate) and the `run` the crate/program in  one step
+```sh
+#step 1
+cargo build
+   Compiling hello_world v0.1.0 (file:///path/to/package/hello_world)
+# step 2
+./target/debug/hello_world
+Hello, world!
+```
+`cargo.lock` file contains information about programm dependencies
+`cargo build --release` to compile files with optimizations turned on oce ready fo a release.
+
+`... --release` puts the resulting binary in `target/release` instead of `target/debug`
+compiling in debug mode by default for development which is shorte since compiler doesn't do optimizations, but the code execution will be slower. Release mode is the opposite.
