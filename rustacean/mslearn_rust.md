@@ -42,5 +42,61 @@ some of the **cargo** functionalities:
 - Test a project with `cargo test` cmd.
 - Check project types with `cargo check` cmd.
 - Build documentation for a project with `cargo doc` cmd.
-- Publish a library to <crates.io> with `cargo publish` cmd.
+- Publish a library to crates.io with `cargo publish` cmd.
 
+## Create new project.
+
+Change to your working directory and use the cmd.
+```sh
+cargo new NameOfProject
+```
+This cmd generates a new dir with the given name with a src directory and two files:
+
+```sh
+├── Cargo.toml
+└── src
+    └── main.rs
+
+1 directory, 2 files
+```
+
+- *__Cargo.toml__* file: 
+        the manifest file for rust, Metadata and any dependencies for the project is stored here
+
+```rust
+fn main() {
+     println!("Hello, world!");
+}
+```
+
+- *__main.rs__* file:
+     in the src subdirectory, entry point for your application code
+     > `cargo new` generates a boilerplate `"Hello world!"` project
+
+```toml
+[package]
+name = "hello-cargo"
+version = "0.1.0"
+authors = ["git local name <yourmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+```
+
+## Build the project
+
+Before delving into code, try and run the boilerplate code by doing the following:
+
+```sh
+cd hello-cargo
+cargo run
+```
+sample output of the commands above,
+```sh
+   Compiling hello-cargo v0.1.0 (/home/ichigo/old/home/geopro/Documents/pyqt/fileIO/urban-memory/rustacean/hello-cargo)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.86s
+     Running `target/debug/hello-cargo`
+Hello, world!
+```

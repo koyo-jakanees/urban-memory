@@ -11,3 +11,5 @@ venv/
 .env/
 target/
 shell/db_backup.*
+*.lock
+target/
