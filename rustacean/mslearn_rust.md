@@ -36,6 +36,11 @@ Use `rustc` compiler for simple programs. For bigger projects, the build tool an
 
 some of the **cargo** functionalities:
 
-- create new project templates with the `cargo new` command
-- Build a project with the `cargo build` command.
-- Build and run a project with the `cargo run` commands
+- create new project templates with the `cargo new` cmd.
+- Build a project with the `cargo build` cmd.
+- Build and run a project with the `cargo run` cmd.
+- Test a project with `cargo test` cmd.
+- Check project types with `cargo check` cmd.
+- Build documentation for a project with `cargo doc` cmd.
+- Publish a library to <crates.io> with `cargo publish` cmd.
+
