@@ -14,7 +14,7 @@ class BtnWindow(QWidget):
     """create our gui constructs."""
     
     def __init__(self):
-        super().__init__() #create default constructor fo QWidget
+        super().__init__() #create default constructor for QWidget
         self.initializeUI()
         
     def initializeUI(self):
