@@ -13,4 +13,4 @@ target/
 shell/db_backup.*
 *.lock
 target/
-img/misc.png
+img/misc.pngvar
