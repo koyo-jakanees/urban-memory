@@ -15,8 +15,8 @@ ref: https://pythonpyqt.com/pyqt-progressbar/
 
 import sys
 import time
-from PyQt5.QtCore import QThread, pyqtSignal
-from PyQt5.QtWidgets import (
+from PySide6.QtCore import QThread, Signal
+from PySide6.QtWidgets import (
     QWidget,
     QPushButton,
     QProgressBar,
@@ -26,7 +26,7 @@ from PyQt5.QtWidgets import (
 
 class Thread(QThread):
     """run different threads"""
-    _signal = pyqtSignal(int)
+    _signal = Signal(int)
     def __init__(self):
         super(Thread, self).__init__()
 
@@ -34,7 +34,7 @@ class Thread(QThread):
         self.wait()
     
     def run(self):
-        for i in range(50):
+        for i in range(100):
             time.sleep(0.1)
             self._signal.emit(i)
 
