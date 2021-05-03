@@ -132,3 +132,214 @@ Hello, world!
 
 `... --release` puts the resulting binary in `target/release` instead of `target/debug`
 compiling in debug mode by default for development which is shorte since compiler doesn't do optimizations, but the code execution will be slower. Release mode is the opposite.
+
+Rust comes with built-in data types to express numbers, text and truthiness.
+
+### Numbers
+Integers can be identified by bit size and the signed property. Signed Integers can represent positive and negative numbers.
+Unsigned represent on positive numbers.
+
+| Length	|Signed |	Unsigned|
+| :-------: |:-------: | :-------:|
+|8-bit	 | i8	|  u8     |
+|16-bit	 | i16	|  u16  |
+|32-bit	 | i32	|  u32  |
+|64-bit	 | i64	|  u64  |
+|128-bit | i128	|  u128  |
+|arch	 | isize|  usize  |
+
+`isize` and `usize` types depend on the kind of computer your program is running on: 64-bit if you're on 64-bit architecture and 32 bit if you're 32-bit architecture.
+The default type assigned to integers whenever you don't specify one/
+
+Rust's floating point type are `f32` and `f64` which are 32 and 64 bits respectively.
+the default type is `f64` because on modern CPU's it's roughly same speed as `f32` but is  capable of more precision.
+
+```rust
+let x = 2.0; //f64, the default type
+let y: f32 = 3.0; //f32, via type annotation
+```
+primitive number types support mathematical operations such as [`addition, subtraction, multiplication and division`](https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&gist=d683842bd8cedd949ed3c56b27f6f0eb%3Fazure-portal%3Dtrue)
+
+```rust
+fn main() {
+    // Addition
+    println!("1 + 2 = {}", 1u32 + 2);
+
+    // Subtraction
+    println!("1 - 2 = {}", 1i32 - 2);
+    // ^ Try changing `1i32` to `1u32` to see why the type is important
+
+    // Integer Division
+    println!("9 / 2 = {}", 9u32 / 2);
+
+    // Float Division
+    println!("9 / 2 = {}", 9.0 / 2.0);
+
+    // Multiplication
+    println!("3 * 6 = {}", 3 * 6)
+}
+```
+
+### Booleans
+Booleans in Rust are represented by the type `bool` and have two possible values: `true or false`. They're used widely in conditionals, such as `if` and `else` expressions
+```rust
+let is_bigger = 1 > 4;
+println!("{}", is_bigger);  // prints "false"
+```
+
+### Character and Strings
+Rust has two string types and one character type. All of them are valid UTF-8 representations.
+The `char` type is the most primitive type among them and is specified with single quotation marks:
+
+```rust
+let c = 'z';
+let z = 'ℤ';
+let heart_eyed_cat = '😻';
+```
+The `str` type, also known as a `string slice`, is a view into string data. Most of the time, we refer to those types in referenced form by using the form `&str`. We'll cover references in the following modules. For now, you can think of `&str` as a pointer to an immutable string data. String literals are all of type `&str`.
+
+Although string literals are convenient to use in introductory Rust examples, they aren't suitable for every situation in which we might want to use text. That's because not every string can be known at compile time. An example is when a user interacts with a program and sends text via a terminal.
+
+For these situations, Rust has a second string type, `String.` This type is allocated on the heap. It can store an amount of text that's unknown to us at compile time.
+
+```rust
+let mut hello = String::from("Hello, ");  // create a String from a string literal
+hello.push('w');                          // push a character into our String
+hello.push_str("orld!");                  // push a string literal into our String
+println!("{}", hello)
+```
+
+### Tuples
+A tuple is a grouping of values of different types collected into one compound. They have fixed length, meaning that after they're declared, they can't grow or shrink in size. The type of a tuple is defined by the sequence of each member's type.
+
+```rust
+("hello", 5i32, 'c');
+```
+This tuple has the type signature (`&'static str, i32, char`), where:
+
+- `&'static` str is the type of the first element.
+- `i32` is the type of the second element.
+- `char` is the type of the third element.
+
+Tuples elements can be accessed by position, which is known as tuple indexing. It looks like this:
+
+```rust
+fn main() {
+  let tuple = ("hello", 5, 'c');
+
+  assert_eq!(tuple.0, "hello");
+  assert_eq!(tuple.1, 5);
+  assert_eq!(tuple.2, 'c');
+}
+```
+`assert_eq!` macro verifies that two expressions are equal to each other.
+Tuples are useful when you want to combine different types into a single value. For instance, functions can use tuples to return multiple values because tuples can hold any number of values
+
+### Structs and Enums
+
+Struct is a type that's composed of other types, like tuples. The pieces of a struct can be different types, but you can name each piece of data so it's clear what values mean.
+
+structs in rust comes in 3 flavors. `classic, tuple and unit structs`
+
+```rust
+// A struct with named fields
+struct Person {
+    name: String,
+    age: u8,
+    likes_oranges: bool
+}
+
+// A tuple struct
+struct Point2D(u32, u32);
+
+// A unit struct
+struct Unit;
+```
+- __classic struct__:  [C Structs](https://en.wikipedia.org/wiki/Struct_(C_programming_language)) most commonly used. Each field defined within them has a name and a type. After they're defined, they can be accessed by using `example_struct.field` syntax
+- __Tuple Struct__: similar to classic struct, but their fields have no names. For accessing individual variables, the same syntax is used as with regular tuples, namely `foo.0`, `foo.1` and so on. Starting at zero.
+- __Unit Struct__: Are most commonly used as markers.
+  
+#### Instantiate Structs
+```rust
+// A struct with named fields
+struct Person {
+    name: String,
+    age: u8,
+    likes_oranges: bool
+}
+
+// A tuple struct
+struct Point2D(u32, u32);
+
+// A unit struct
+struct Unit;
+
+fn main() {
+    // Instantiate a regular struct, with named fields. Order does not matter.
+    let person = Person {
+        name: String::from("Adam"),
+        age: 25,
+        likes_oranges: true
+    };
+    
+    // Instantiate a tuple struct by passing the values in the same order as defined.
+    let origin = Point2D(0, 0)
+    
+    // Instantiate a unit struct.
+    let unit = Unit;
+}
+```
+
+### Enums
+Are types that can be any of several variants.
+
+What Rust calls enums are more commonly known as [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type) if you're coming from a functional programming background. The important detail is that each enum variant can have data to go along with it.
+
+`Enum` keyword allows the creation of a type which might be one of  few different variants. Enum variants just like structs, can have fields  with names,fields without names or no fields at alll.
+
+Define an enum to classify a web event. Each variant is independent and stores different amounts and types of values.
+
+```rust
+enum WebEvent {
+    // An enum may either be unit-like,
+    PageLoad,
+    PageUnload,
+    // An enum can include characters and strings
+    KeyPress(char),
+    Paste(String),
+    // or include tuple structs
+    Click { x: i64, y: i64 },
+}
+```
+
+- `PageLoad `and `PageUnload` have no data associated with it at all.
+- `Keypress` includes a single character in it.
+- `Paste` includes a single string.
+- `Click` includes an anonymous struct inside it.
+
+Defining an enum with variants such as the preceding one is similar to defining different kinds of struct definitions. All the variants are grouped together under the same WebEvent type and each variant is not its own type. This means we can't have functions that only accept KeyPress and not other variants of the WebEvent enum.
+
+We can chose to define separate structs for each variant and then have each variant hold on to the different structs. These would hold the same data that the preceding enum variants held. But this definition would allow users to refer to each logical variant on its own.
+
+```rust
+enum WebEvent {
+    PageLoad,
+    PageUnload,
+    KeyPress(KeyPress),
+    Paste(String),
+    Click(Click)
+}
+
+struct Click { 
+    x: i64, 
+    y: i64 
+}
+
+struct KeyPress(char);
+```
+Now in your code you can refer to a `WebEvent::Click` which is a variant of the type `WebEvent` and you can also just refer to `Clicks` on their own separate from `WebEvent`s.
+
+#### Exercise - Fix the code with structs and enums
+Let's build cars!
+
+Edit only the `car_factory `function so that it can return `Car` objects as requested by the clients.
