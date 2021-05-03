@@ -343,3 +343,72 @@ Now in your code you can refer to a `WebEvent::Click` which is a variant of the 
 Let's build cars!
 
 Edit only the `car_factory `function so that it can return `Car` objects as requested by the clients.
+
+#### Creating reusable functionality with functions.
+
+Functions are the primary way code is executed in rust. The `main` function is the entry point of many programs.
+Function definitations in rust start with `fn` and have a set of parenthesis after the function name.
+
+```rust
+fn main() {
+    println!("Hello, world!");
+    another_function();
+}
+
+fn another_function() {
+    println!("Hello from another function!");
+}
+```
+#### passing parameters to functions
+```rust
+fn is_divisible_by(dividend: u32, divisor: u32) -> bool {
+  // If the divisor is zero, we want to return early with a `false` value
+  if divisor == 0 {
+    return false;
+  }
+  dividend % divisor == 0
+}
+```
+- `fn`: The function declaration keyword in Rust.
+- `is_divisible_by`: The function name.
+- `(dividend: u32, divisor: u32)`: This function's parameter list. It states that two unsigned 32-bit integers are expected as input values.
+- `-> bool`: The arrow points to the type of value this function will always return.
+The i`s_divisible_by `function accepts two integers as inputs and outputs a boolean value
+
+### Collection types.
+Rust has many other compound types that can group multiple values into a single type.
+
+#### Arrays:
+A collection of objects of the same type, which is stored sequentialy in memory. Created by using `[]`. Their size which is known at compile time is part of their signature `[T; size]` where `T` is the type of the values in the array and `size` in a non-negative integer checked at compile time.
+> Arrays have fixec length and every element of an array must be of the same type.
+
+- comma-separated list inside brackets
+- The initial value, followed by a semicolon, and then the length of the array in brackets
+
+```rust
+fn main() {
+  // a comma-separated list inside of brackets
+  let weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+  // initialize an array of 512 elements where every element is a zero
+  let byte_buffer = [0_u8; 512];
+}
+```
+Arrays are useful when you want your data allocated on the stack rather than the heap. They're also useful when you want to ensure you always have a fixed number of elements.
+You can access elements of an array by using indexing, which starts at 0
+```rust
+let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+println!("first element of the array: {}", letters[0]);  // prints 'a'
+println!("second element of the array: {}", letters[1]); // prints 'b'
+```
+Since the array length is known at compile time, Rust makes it impossible to build any program that attempts to access an array out of its bounds with an index known at compile time.
+#### Vectors
+you can use vectors with the type `Vec<T>` to store multiple values of the same type. Unlike arrays, vectors can grow or shrink at any time. This capability is implied in their size not being known at compile time, so Rust can't prevent you from accessing an invalid position in your vector.
+> You'll notice the syntax `<T>` often in Rust. These are generic type parameters. When we write `Vec<T>,` what we're indicating is a `Vec` type composed of some type `T`. The name `T` is conventionally used as a type name for a type we don't yet know. When we actually create vectors, they'll have concrete types like `Vec<u32>` or `Vec<String>`.
+
+You can use the `vec!` macro to initialize a vector.
+
+You might have noticed the `{:?}` format parameter inside the `println!` calls. It's used whenever we want to print something for debugging reasons, whereas `{}` is used for displaying information to an end user. Because Rust doesn't know how to represent a vector of integers to end users, using the former mark would result in a compilation error. We're going to learn precisely how to do that when we reach the `"Traits"` module in this course.
+
+Vectors can also be created by using the `Vec::new()` method. You can push values onto the end of a vector, which will grow the vector as needed:
+
