@@ -411,4 +411,38 @@ You can use the `vec!` macro to initialize a vector.
 You might have noticed the `{:?}` format parameter inside the `println!` calls. It's used whenever we want to print something for debugging reasons, whereas `{}` is used for displaying information to an end user. Because Rust doesn't know how to represent a vector of integers to end users, using the former mark would result in a compilation error. We're going to learn precisely how to do that when we reach the `"Traits"` module in this course.
 
 Vectors can also be created by using the `Vec::new()` method. You can push values onto the end of a vector, which will grow the vector as needed:
+```rust
+let mut v = Vec::new();  // creates an empty vector,
+v.push(5);               // pushes the number five into it...
+v.push(6);               // ... an then six, and so on
+v.push(7);
+v.push(8);
+println!("{:?}", v); // prints [5, 6, 7, 8]
+```
+Popping values works in much the same way:
 
+```rust
+let mut v = vec![1, 2];
+let two = v.pop();
+```
+Vectors also support indexing:
+```rust
+let mut v = vec![1, 2, 3];
+let three = v[2];
+v[1] = v[1] + 5;
+```
+If you try to use an index value that the vector doesn't have an element for, the program will enter an unrecoverable panic state and terminate its thread.
+
+As an example, let's see what a program will do if it has a vector that holds five elements and then tries to access an element at index 100:
+```rust
+let v = vec![1, 2, 3, 4, 5];
+let does_not_exist = v[100];
+```
+```sh
+# output
+   Compiling playground v0.0.1 (/playground)
+    Finished dev [unoptimized + debuginfo] target(s) in 4.04s
+     Running `target/debug/playground`
+thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 100', src/main.rs:3:26
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+```

@@ -15,6 +15,14 @@ fn main() {
      // the vec! macro also accepts the same syntax as the array constructor
     let ten_zeroes = vec![0; 10];
     println!("Ten zeroes: {:?}", ten_zeroes); // prints [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let mut v = Vec::new();  // creates an empty vector,
+    v.push(5);               // pushes the number five into it...
+    v.push(6);               // ... an then six, and so on
+    v.push(7);
+    v.push(8);
+    v.push(8);
+    v.push(8);
+    println!("{:?}", v); // prints [5, 6, 7, 8]
 }
 
 fn another_function() {
