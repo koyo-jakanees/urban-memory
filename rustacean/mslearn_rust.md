@@ -138,7 +138,7 @@ Rust comes with built-in data types to express numbers, text and truthiness.
 
 ### Numbers
 Integers can be identified by bit size and the signed property. Signed Integers can represent positive and negative numbers.
-Unsigned represent on positive numbers.
+Unsigned represent only positive numbers.
 
 | Length	|Signed |	Unsigned|
 | :-------: |:-------: | :-------:|
@@ -549,3 +549,54 @@ if number % 4 == 0 {
     println!("number is not divisible by 4, 3, or 2");
 }
 ```
+If a condition expression evaluates to `true`, the consequent block is executed. Any subsequent `else if` or `else` block is skipped. If a condition expression evaluates to `false`, the consequent block is skipped. Any subsequent `else if` condition is evaluated. If all `if` and `else if` conditions evaluate to `false`, then any `else` block is executed
+
+#### Loop forever with `loop`
+
+A `loop` expression denotes an `infinite loop`. It repeats execution of its body continuously:
+If you decide to try running  the compiled version, just  hit `ctrl + C` to keyboard interrupt.
+
+```rust
+loop {
+    println!("I loop forever");
+}
+```
+Unlike the other kinds of loops in Rust like while and for, `loop` can be used in expressions that return values via `break`.
+
+#### Loop until a criteria is met with `while` loops
+
+A `while` expression loops until a predicate is _false_.
+
+A `while` loop begins by evaluating the boolean loop conditional expression. If the loop conditional expression evaluates to `true`, the loop body block executes. Control then returns to the loop conditional expression. If the loop conditional expression evaluates to `false`, the _while_ expression completes.
+
+```rust
+let mut counter = 0;
+
+while counter < 10 {
+    println!("hello World!!");
+    counter = counter + 1;
+}
+```
+
+#### Iterate with `for` loops
+
+A `for` expression extracts values from an iterator. It loops until the iterator is empty.
+
+In Rust, an iterator is any type that can iterate over values. Some values can be iterated over directly and others can produce iterators by calling methods like `.iter()`
+
+```rust
+let a = [10, 20, 30, 40, 50];
+
+for element in a.iter() {
+    println!("the value is: {}", element);
+}
+```
+The preceding code iterates through each element in the array and binds it to the `element` variable. The `println!` macro then prints each of those values in sequence.
+Another easy way to create an iterator is to use the range notation `a..b`. This notation yields values from `a` (inclusive) to `b` (exclusive) in steps of one.
+
+```rust
+for item in 0..5 {
+    println!("{}", item * 2);
+}
+```
+The preceding code iterates through the numbers 0, 1, 2, 3, and 4 and binds it to the `item` variable for each cycle of this loop.
