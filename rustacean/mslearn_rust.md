@@ -511,3 +511,41 @@ assert_eq!(book_reviews.contains_key(sherlock), true);
 book_reviews.remove(sherlock);
 assert_eq!(book_reviews.contains_key(sherlock), false);
 ```
+
+### Control Flow
+
+#### `if/else` expressions
+
+The form of an `if` expression is a condition expression followed by a consequent block, any number of `else if` conditions and blocks, and an optional trailing `else` block. The condition expressions must have type `bool`.
+```rust
+if 1 == 2 {
+    println!("whoops, mathematics broke");
+} else {
+    println!("everything's fine!");
+}
+```
+In the preceding example, the condition of `if` is the expression `1 == 2`, which evaluates into a boolean type with the value _false_.
+Unlike in most languages, if blocks can also act as expressions. Remember that all branches must return the same type for our code to compile.
+```rust
+let formal = true;
+let greeting = if formal {
+    "Good evening."
+} else {
+    "Hello, friend!"
+};
+println!(greeting) // prints "Good evening."
+```
+You can have multiple conditions by combining `if` and `else` in an `else if` expression
+```rust
+let number = 6;
+
+if number % 4 == 0 {
+    println!("number is divisible by 4");
+} else if number % 3 == 0 {
+    println!("number is divisible by 3");
+} else if number % 2 == 0 {
+    println!("number is divisible by 2");
+} else {
+    println!("number is not divisible by 4, 3, or 2");
+}
+```
