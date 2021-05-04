@@ -33,6 +33,7 @@ Rust Pros offers.
     Very minimal and optimal runtime. It has no garbage collector to manage memory efficiently. Most similar to C & C++.
 
 To install rust visit [here](https://rustup.rs/), or directly run this in  your terminal 
+
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
@@ -52,9 +53,11 @@ some of the **cargo** functionalities:
 ## Create new project.
 
 Change to your working directory and use the cmd.
+
 ```sh
 cargo new NameOfProject
 ```
+
 This cmd generates a new dir with the given name with a src directory and two files:
 
 ```sh
@@ -119,6 +122,7 @@ for indepth coverage
 >  - Introduces conventions to make working with Rust packages easier.
 
 The `cargo run` cmd combines two process i.e `cargo build` to generate/compile the binary [binary crate](https://doc.rust-lang.org/cargo/appendix/glossary.html#crate) and the `run` the crate/program in  one step
+
 ```sh
 #step 1
 cargo build
@@ -127,6 +131,7 @@ cargo build
 ./target/debug/hello_world
 Hello, world!
 ```
+
 `cargo.lock` file contains information about programm dependencies
 `cargo build --release` to compile files with optimizations turned on oce ready fo a release.
 
@@ -136,6 +141,7 @@ compiling in debug mode by default for development which is shorte since compile
 Rust comes with built-in data types to express numbers, text and truthiness.
 
 ### Numbers
+
 Integers can be identified by bit size and the signed property. Signed Integers can represent positive and negative numbers.
 Unsigned represent on positive numbers.
 
@@ -158,6 +164,7 @@ the default type is `f64` because on modern CPU's it's roughly same speed as `f3
 let x = 2.0; //f64, the default type
 let y: f32 = 3.0; //f32, via type annotation
 ```
+
 primitive number types support mathematical operations such as [`addition, subtraction, multiplication and division`](https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&gist=d683842bd8cedd949ed3c56b27f6f0eb%3Fazure-portal%3Dtrue)
 
 ```rust
@@ -181,7 +188,9 @@ fn main() {
 ```
 
 ### Booleans
+
 Booleans in Rust are represented by the type `bool` and have two possible values: `true or false`. They're used widely in conditionals, such as `if` and `else` expressions
+
 ```rust
 let is_bigger = 1 > 4;
 println!("{}", is_bigger);  // prints "false"
@@ -196,6 +205,7 @@ let c = 'z';
 let z = 'ℤ';
 let heart_eyed_cat = '😻';
 ```
+
 The `str` type, also known as a `string slice`, is a view into string data. Most of the time, we refer to those types in referenced form by using the form `&str`. We'll cover references in the following modules. For now, you can think of `&str` as a pointer to an immutable string data. String literals are all of type `&str`.
 
 Although string literals are convenient to use in introductory Rust examples, they aren't suitable for every situation in which we might want to use text. That's because not every string can be known at compile time. An example is when a user interacts with a program and sends text via a terminal.
@@ -210,11 +220,13 @@ println!("{}", hello)
 ```
 
 ### Tuples
+
 A tuple is a grouping of values of different types collected into one compound. They have fixed length, meaning that after they're declared, they can't grow or shrink in size. The type of a tuple is defined by the sequence of each member's type.
 
 ```rust
 ("hello", 5i32, 'c');
 ```
+
 This tuple has the type signature (`&'static str, i32, char`), where:
 
 - `&'static` str is the type of the first element.
@@ -232,6 +244,7 @@ fn main() {
   assert_eq!(tuple.2, 'c');
 }
 ```
+
 `assert_eq!` macro verifies that two expressions are equal to each other.
 Tuples are useful when you want to combine different types into a single value. For instance, functions can use tuples to return multiple values because tuples can hold any number of values
 
@@ -255,11 +268,13 @@ struct Point2D(u32, u32);
 // A unit struct
 struct Unit;
 ```
+
 - __classic struct__:  [C Structs](https://en.wikipedia.org/wiki/Struct_(C_programming_language)) most commonly used. Each field defined within them has a name and a type. After they're defined, they can be accessed by using `example_struct.field` syntax
 - __Tuple Struct__: similar to classic struct, but their fields have no names. For accessing individual variables, the same syntax is used as with regular tuples, namely `foo.0`, `foo.1` and so on. Starting at zero.
 - __Unit Struct__: Are most commonly used as markers.
   
 #### Instantiate Structs
+
 ```rust
 // A struct with named fields
 struct Person {
@@ -291,6 +306,7 @@ fn main() {
 ```
 
 ### Enums
+
 Are types that can be any of several variants.
 
 What Rust calls enums are more commonly known as [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type) if you're coming from a functional programming background. The important detail is that each enum variant can have data to go along with it.
@@ -312,7 +328,7 @@ enum WebEvent {
 }
 ```
 
-- `PageLoad `and `PageUnload` have no data associated with it at all.
+- `PageLoad` and `PageUnload` have no data associated with it at all.
 - `Keypress` includes a single character in it.
 - `Paste` includes a single string.
 - `Click` includes an anonymous struct inside it.
@@ -337,9 +353,11 @@ struct Click {
 
 struct KeyPress(char);
 ```
+
 Now in your code you can refer to a `WebEvent::Click` which is a variant of the type `WebEvent` and you can also just refer to `Clicks` on their own separate from `WebEvent`s.
 
 #### Exercise - Fix the code with structs and enums
+
 Let's build cars!
 
 Edit only the `car_factory `function so that it can return `Car` objects as requested by the clients.
@@ -359,7 +377,9 @@ fn another_function() {
     println!("Hello from another function!");
 }
 ```
+
 #### passing parameters to functions
+
 ```rust
 fn is_divisible_by(dividend: u32, divisor: u32) -> bool {
   // If the divisor is zero, we want to return early with a `false` value
@@ -369,16 +389,19 @@ fn is_divisible_by(dividend: u32, divisor: u32) -> bool {
   dividend % divisor == 0
 }
 ```
+
 - `fn`: The function declaration keyword in Rust.
 - `is_divisible_by`: The function name.
 - `(dividend: u32, divisor: u32)`: This function's parameter list. It states that two unsigned 32-bit integers are expected as input values.
 - `-> bool`: The arrow points to the type of value this function will always return.
-The i`s_divisible_by `function accepts two integers as inputs and outputs a boolean value
+The `is_divisible_by `function accepts two integers as inputs and outputs a boolean value
 
 ### Collection types.
+
 Rust has many other compound types that can group multiple values into a single type.
 
 #### Arrays:
+
 A collection of objects of the same type, which is stored sequentialy in memory. Created by using `[]`. Their size which is known at compile time is part of their signature `[T; size]` where `T` is the type of the values in the array and `size` in a non-negative integer checked at compile time.
 > Arrays have fixec length and every element of an array must be of the same type.
 
@@ -394,15 +417,20 @@ fn main() {
   let byte_buffer = [0_u8; 512];
 }
 ```
+
 Arrays are useful when you want your data allocated on the stack rather than the heap. They're also useful when you want to ensure you always have a fixed number of elements.
 You can access elements of an array by using indexing, which starts at 0
+
 ```rust
 let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
 println!("first element of the array: {}", letters[0]);  // prints 'a'
 println!("second element of the array: {}", letters[1]); // prints 'b'
+
 ```
+
 Since the array length is known at compile time, Rust makes it impossible to build any program that attempts to access an array out of its bounds with an index known at compile time.
 #### Vectors
+
 you can use vectors with the type `Vec<T>` to store multiple values of the same type. Unlike arrays, vectors can grow or shrink at any time. This capability is implied in their size not being known at compile time, so Rust can't prevent you from accessing an invalid position in your vector.
 > You'll notice the syntax `<T>` often in Rust. These are generic type parameters. When we write `Vec<T>,` what we're indicating is a `Vec` type composed of some type `T`. The name `T` is conventionally used as a type name for a type we don't yet know. When we actually create vectors, they'll have concrete types like `Vec<u32>` or `Vec<String>`.
 
@@ -411,6 +439,7 @@ You can use the `vec!` macro to initialize a vector.
 You might have noticed the `{:?}` format parameter inside the `println!` calls. It's used whenever we want to print something for debugging reasons, whereas `{}` is used for displaying information to an end user. Because Rust doesn't know how to represent a vector of integers to end users, using the former mark would result in a compilation error. We're going to learn precisely how to do that when we reach the `"Traits"` module in this course.
 
 Vectors can also be created by using the `Vec::new()` method. You can push values onto the end of a vector, which will grow the vector as needed:
+
 ```rust
 let mut v = Vec::new();  // creates an empty vector,
 v.push(5);               // pushes the number five into it...
@@ -419,25 +448,31 @@ v.push(7);
 v.push(8);
 println!("{:?}", v); // prints [5, 6, 7, 8]
 ```
+
 Popping values works in much the same way:
 
 ```rust
 let mut v = vec![1, 2];
 let two = v.pop();
 ```
+
 Vectors also support indexing:
+
 ```rust
 let mut v = vec![1, 2, 3];
 let three = v[2];
 v[1] = v[1] + 5;
 ```
+
 If you try to use an index value that the vector doesn't have an element for, the program will enter an unrecoverable panic state and terminate its thread.
 
 As an example, let's see what a program will do if it has a vector that holds five elements and then tries to access an element at index 100:
+
 ```rust
 let v = vec![1, 2, 3, 4, 5];
 let does_not_exist = v[100];
 ```
+
 ```sh
 # output
    Compiling playground v0.0.1 (/playground)
@@ -445,4 +480,37 @@ let does_not_exist = v[100];
      Running `target/debug/playground`
 thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 100', src/main.rs:3:26
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+```
+
+### Hash Maps
+
+Type `HashMap<k,v>`: Stores mapping of keys of some type `k` to values of some type `v`. Where  vectors store values by an integer index, hash maps does so by keys.
+
+Many programming languages support this kind of data structure. They often use a different name, such as hash, map, object, hash table, dictionary, or associative array, to name a few.
+
+
+You can create an empty hash map by using the `HashMap::new` method and then adding elements with the `HashMap::insert` method.
+
+```rust
+use std::collections::HashMap;
+
+let mut book_reviews: HashMap<String, String> = HashMap::new();
+
+// Review some books.
+book_reviews.insert(
+    "Adventures of Huckleberry Finn".to_string(),
+    "My favorite book.".to_string(),
+);
+book_reviews.insert(
+    "Grimms' Fairy Tales".to_string(),
+    "Masterpiece.".to_string(),
+);
+book_reviews.insert(
+    "Pride and Prejudice".to_string(),
+    "Very enjoyable.".to_string(),
+);
+book_reviews.insert(
+    "The Adventures of Sherlock Holmes".to_string(),
+    "Eye lyked it alot.".to_string(),
+);
 ```
