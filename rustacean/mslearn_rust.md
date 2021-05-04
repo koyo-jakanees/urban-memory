@@ -1,5 +1,7 @@
 # Introduction to Rust
 
+Notes from [Microsoft Learn](https://docs.microsoft.com/en-us/learn/modules/rust-understand-common-concepts/7-collection-types):
+
 Rust as a safe alternativ to existing systems software languages like C and C++. Like the well known languags in the space rust doesn't have large runtime of garbage collector, which contrasts it with almost all other modern languages.
 
 Unlike C & C++ Rust guarantees (close to 99%) memory safety . It prevents many of the bugs related to incorrect use of memory you might encounter in C or C++
@@ -143,7 +145,7 @@ Rust comes with built-in data types to express numbers, text and truthiness.
 ### Numbers
 
 Integers can be identified by bit size and the signed property. Signed Integers can represent positive and negative numbers.
-Unsigned represent on positive numbers.
+Unsigned represent only positive numbers.
 
 | Length	|Signed |	Unsigned|
 | :-------: |:-------: | :-------:|
@@ -197,6 +199,7 @@ println!("{}", is_bigger);  // prints "false"
 ```
 
 ### Character and Strings
+
 Rust has two string types and one character type. All of them are valid UTF-8 representations.
 The `char` type is the most primitive type among them and is specified with single quotation marks:
 
@@ -484,10 +487,12 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 ### Hash Maps
 
-Type `HashMap<k,v>`: Stores mapping of keys of some type `k` to values of some type `v`. Where  vectors store values by an integer index, hash maps does so by keys.
-
+The type `HashMap<K, V>` stores a mapping of keys of some type `K` to values of some type `V`. Where vectors store values by an integer index, hash maps store values by key.
 Many programming languages support this kind of data structure. They often use a different name, such as hash, map, object, hash table, dictionary, or associative array, to name a few.
 
+Like vectors, hash maps are growable, store the data in the heap, and access to its items are checked at run time.
+
+In the following example, we're keeping track of a personal book review system. The keys are the book names, and the values are the reviews made by one specific user.
 
 You can create an empty hash map by using the `HashMap::new` method and then adding elements with the `HashMap::insert` method.
 
@@ -513,4 +518,122 @@ book_reviews.insert(
     "The Adventures of Sherlock Holmes".to_string(),
     "Eye lyked it alot.".to_string(),
 );
+// querying the populated hash map
+if !book_reviews.contains_key("Les Misérables") {
+    println!("We've got {} reviews, but Les Misérables ain't one.",
+    book_reviews.len());
+}
 ```
+You can see from the first line that we need to use `HashMap` from the `collections` portion of the standard library to bring its name into scope. This use is similar to what other programming languages call an `import`.
+
+The next notable aspect of the preceding snippet is the use of the `.to_string()` method invocation. This method transforms a string literal `(&str)` value into `String`. This method is useful when we want our hash map to "own" the values it holds, instead of being a collection of references _(pointers)_. We'll cover those differences in detail when we reach the "Ownership and Borrowing" module.
+
+Hash maps can use references to query for existing entries, which means that even if our hash map is of type `HashMap<String, String>`, we can use the `&str` or `&String` types to look up its keys
+
+Just like with vectors, looking for a nonexistent key causes the program to panic:
+
+```rust
+// Searching for an existing key returns the value associated to it
+println!("Review for Jane: {}", book_reviews["Pride and Prejudice"]);
+
+// But searching for a nonexisting key will cause a panic
+println!("Review for Herman: {}", book_reviews["Moby Dick"]);  // panics!
+```
+
+Hash maps also have the `.get()` method for safely querying their content without causing any panic
+We can remove entries from a hash map by using the `.remove()` method
+```rust
+let sherlock = "The Adventures of Sherlock Holmes";
+assert_eq!(book_reviews.contains_key(sherlock), true);
+book_reviews.remove(sherlock);
+assert_eq!(book_reviews.contains_key(sherlock), false);
+```
+
+### Control Flow
+
+#### `if/else` expressions
+
+The form of an `if` expression is a condition expression followed by a consequent block, any number of `else if` conditions and blocks, and an optional trailing `else` block. The condition expressions must have type `bool`.
+```rust
+if 1 == 2 {
+    println!("whoops, mathematics broke");
+} else {
+    println!("everything's fine!");
+}
+```
+In the preceding example, the condition of `if` is the expression `1 == 2`, which evaluates into a boolean type with the value _false_.
+Unlike in most languages, if blocks can also act as expressions. Remember that all branches must return the same type for our code to compile.
+```rust
+let formal = true;
+let greeting = if formal {
+    "Good evening."
+} else {
+    "Hello, friend!"
+};
+println!(greeting) // prints "Good evening."
+```
+You can have multiple conditions by combining `if` and `else` in an `else if` expression
+```rust
+let number = 6;
+
+if number % 4 == 0 {
+    println!("number is divisible by 4");
+} else if number % 3 == 0 {
+    println!("number is divisible by 3");
+} else if number % 2 == 0 {
+    println!("number is divisible by 2");
+} else {
+    println!("number is not divisible by 4, 3, or 2");
+}
+```
+If a condition expression evaluates to `true`, the consequent block is executed. Any subsequent `else if` or `else` block is skipped. If a condition expression evaluates to `false`, the consequent block is skipped. Any subsequent `else if` condition is evaluated. If all `if` and `else if` conditions evaluate to `false`, then any `else` block is executed
+
+#### Loop forever with `loop`
+
+A `loop` expression denotes an `infinite loop`. It repeats execution of its body continuously:
+If you decide to try running  the compiled version, just  hit `ctrl + C` to keyboard interrupt.
+
+```rust
+loop {
+    println!("I loop forever");
+}
+```
+Unlike the other kinds of loops in Rust like while and for, `loop` can be used in expressions that return values via `break`.
+
+#### Loop until a criteria is met with `while` loops
+
+A `while` expression loops until a predicate is _false_.
+
+A `while` loop begins by evaluating the boolean loop conditional expression. If the loop conditional expression evaluates to `true`, the loop body block executes. Control then returns to the loop conditional expression. If the loop conditional expression evaluates to `false`, the _while_ expression completes.
+
+```rust
+let mut counter = 0;
+
+while counter < 10 {
+    println!("hello World!!");
+    counter = counter + 1;
+}
+```
+
+#### Iterate with `for` loops
+
+A `for` expression extracts values from an iterator. It loops until the iterator is empty.
+
+In Rust, an iterator is any type that can iterate over values. Some values can be iterated over directly and others can produce iterators by calling methods like `.iter()`
+
+```rust
+let a = [10, 20, 30, 40, 50];
+
+for element in a.iter() {
+    println!("the value is: {}", element);
+}
+```
+The preceding code iterates through each element in the array and binds it to the `element` variable. The `println!` macro then prints each of those values in sequence.
+Another easy way to create an iterator is to use the range notation `a..b`. This notation yields values from `a` (inclusive) to `b` (exclusive) in steps of one.
+
+```rust
+for item in 0..5 {
+    println!("{}", item * 2);
+}
+```
+The preceding code iterates through the numbers 0, 1, 2, 3, and 4 and binds it to the `item` variable for each cycle of this loop.
