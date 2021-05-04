@@ -22,6 +22,7 @@ fn main() {
     v.push(8);
     v.push(8);
     v.push(8);
+    v.push(8);
     println!("{:?}", v); // prints [5, 6, 7, 8]
 }
 

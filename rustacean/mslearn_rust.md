@@ -1,5 +1,6 @@
 # Introduction to Rust
 
+Notes from [Microsoft Learn](https://docs.microsoft.com/en-us/learn/modules/rust-understand-common-concepts/7-collection-types): 
 Rust as a safe alternativ to existing systems software languages like C and C++. Like the well known languags in the space rust doesn't have large runtime of garbage collector, which contrasts it with almost all other modern languages.
 
 Unlike C & C++ Rust guarantees (close to 99%) memory safety . It prevents many of the bugs related to incorrect use of memory you might encounter in C or C++
@@ -445,4 +446,68 @@ let does_not_exist = v[100];
      Running `target/debug/playground`
 thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 100', src/main.rs:3:26
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+```
+
+### Hash Maps
+
+The type `HashMap<K, V>` stores a mapping of keys of some type `K` to values of some type `V`. Where vectors store values by an integer index, hash maps store values by key.
+Many programming languages support this kind of data structure. They often use a different name, such as hash, map, object, hash table, dictionary, or associative array, to name a few.
+
+Like vectors, hash maps are growable, store the data in the heap, and access to its items are checked at run time.
+
+In the following example, we're keeping track of a personal book review system. The keys are the book names, and the values are the reviews made by one specific user.
+
+You can create an empty hash map by using the `HashMap::new` method and then adding elements with the `HashMap::insert` method.
+
+```rust
+use std::collections::HashMap;
+
+let mut book_reviews: HashMap<String, String> = HashMap::new();
+
+// Review some books.
+book_reviews.insert(
+    "Adventures of Huckleberry Finn".to_string(),
+    "My favorite book.".to_string(),
+);
+book_reviews.insert(
+    "Grimms' Fairy Tales".to_string(),
+    "Masterpiece.".to_string(),
+);
+book_reviews.insert(
+    "Pride and Prejudice".to_string(),
+    "Very enjoyable.".to_string(),
+);
+book_reviews.insert(
+    "The Adventures of Sherlock Holmes".to_string(),
+    "Eye lyked it alot.".to_string(),
+);
+// querying the populated hash map
+if !book_reviews.contains_key("Les Misérables") {
+    println!("We've got {} reviews, but Les Misérables ain't one.",
+    book_reviews.len());
+}
+```
+You can see from the first line that we need to use `HashMap` from the `collections` portion of the standard library to bring its name into scope. This use is similar to what other programming languages call an `import`.
+
+The next notable aspect of the preceding snippet is the use of the `.to_string()` method invocation. This method transforms a string literal `(&str)` value into `String`. This method is useful when we want our hash map to "own" the values it holds, instead of being a collection of references _(pointers)_. We'll cover those differences in detail when we reach the "Ownership and Borrowing" module.
+
+Hash maps can use references to query for existing entries, which means that even if our hash map is of type `HashMap<String, String>`, we can use the `&str` or `&String` types to look up its keys
+
+Just like with vectors, looking for a nonexistent key causes the program to panic:
+
+```rust
+// Searching for an existing key returns the value associated to it
+println!("Review for Jane: {}", book_reviews["Pride and Prejudice"]);
+
+// But searching for a nonexisting key will cause a panic
+println!("Review for Herman: {}", book_reviews["Moby Dick"]);  // panics!
+```
+
+Hash maps also have the `.get()` method for safely querying their content without causing any panic
+We can remove entries from a hash map by using the `.remove()` method
+```rust
+let sherlock = "The Adventures of Sherlock Holmes";
+assert_eq!(book_reviews.contains_key(sherlock), true);
+book_reviews.remove(sherlock);
+assert_eq!(book_reviews.contains_key(sherlock), false);
 ```

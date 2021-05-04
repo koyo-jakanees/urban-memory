@@ -26,4 +26,10 @@ fn main() {
         book_reviews.len());
     }
 
+    let sherlock = "The Adventures of Sherlock Holmes";
+    assert_eq!(book_reviews.contains_key(sherlock), true);
+    println!("Book reviews contains Sherlock? {}", book_reviews.contains_key(sherlock));
+    book_reviews.remove(sherlock);
+    assert_eq!(book_reviews.contains_key(sherlock), false);
+
 }
