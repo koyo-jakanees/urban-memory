@@ -6,14 +6,8 @@ import sys
 import time
 
 from PyQt5.QtCore import QRunnable, Qt, QThreadPool
-from PyQt5.QtWidgets import (
-    QApplication,
-    QLabel,
-    QMainWindow,
-    QPushButton,
-    QVBoxLayout,
-    QWidget,
-)
+from PyQt5.QtWidgets import (QApplication, QLabel, QMainWindow, QPushButton,
+                             QVBoxLayout, QWidget)
 
 logging.basicConfig(format="%(message)s", level=logging.INFO)
 

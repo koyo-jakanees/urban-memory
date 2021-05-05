@@ -15,14 +15,11 @@ ref: https://pythonpyqt.com/pyqt-progressbar/
 
 import sys
 import time
+
 from PySide6.QtCore import QThread, Signal
-from PySide6.QtWidgets import (
-    QWidget,
-    QPushButton,
-    QProgressBar,
-    QVBoxLayout,
-    QApplication
-)
+from PySide6.QtWidgets import (QApplication, QProgressBar, QPushButton,
+                               QVBoxLayout, QWidget)
+
 
 class Thread(QThread):
     """run different threads"""

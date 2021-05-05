@@ -7,14 +7,8 @@ import sys
 from time import sleep
 
 from PyQt5.QtCore import QMutex, QObject, QThread, pyqtSignal
-from PyQt5.QtWidgets import (
-    QApplication,
-    QLabel,
-    QMainWindow,
-    QPushButton,
-    QVBoxLayout,
-    QWidget,
-)
+from PyQt5.QtWidgets import (QApplication, QLabel, QMainWindow, QPushButton,
+                             QVBoxLayout, QWidget)
 
 logging.basicConfig(format="%(message)s", level=logging.INFO)
 

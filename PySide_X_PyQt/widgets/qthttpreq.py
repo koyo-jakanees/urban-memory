@@ -14,8 +14,10 @@ Original Author: Jan Bodnar
 website: zetcode.com
 """
 import sys
+
 from PyQt5 import QtNetwork
 from PyQt5.QtCore import QCoreApplication, QUrl
+
 
 class Example:
 

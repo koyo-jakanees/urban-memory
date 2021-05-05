@@ -42,10 +42,12 @@
 """PySide2 QtDataVisualization example"""
 
 import sys
+
 from PySide2.QtCore import Qt
-from PySide2.QtGui import QGuiApplication
-from PySide2.QtWidgets import QApplication, QSizePolicy, QMainWindow, QWidget
 from PySide2.QtDataVisualization import QtDataVisualization
+from PySide2.QtGui import QGuiApplication
+from PySide2.QtWidgets import QApplication, QMainWindow, QSizePolicy, QWidget
+
 
 def dataToBarDataRow(data):
     return list(QtDataVisualization.QBarDataItem(d) for d in data)

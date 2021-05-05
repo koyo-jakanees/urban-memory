@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
 #  using generated py file by uic
 
-import sys, random
+import random
+import sys
 
 from PySide2.QtWidgets import QApplication, QWidget
 

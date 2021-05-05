@@ -2,14 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from PyQt5.QtWidgets import (
-    QApplication,
-    QLineEdit,
-    QPushButton,
-    QWidget,
-    QLabel
-)
+
 from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (QApplication, QLabel, QLineEdit, QPushButton,
+                             QWidget)
+
 
 class EntryWindow(QWidget):
     """QlineEdit Example."""

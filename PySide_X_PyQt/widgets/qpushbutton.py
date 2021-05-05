@@ -2,13 +2,10 @@
 # -*- coding:utf-8 -*-
 
 import sys
-from PyQt5.QtWidgets import (
-    QApplication,
-    QWidget,
-    QLabel,
-    QPushButton
-)
+
 from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import QApplication, QLabel, QPushButton, QWidget
+
 
 class BtnWindow(QWidget):
     """create our gui constructs."""

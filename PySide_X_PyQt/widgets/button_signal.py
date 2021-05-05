@@ -1,8 +1,10 @@
 # -*-coding:utf-8 -*-
 
 import sys
-from PySide2.QtWidgets import QApplication, QPushButton
+
 from PySide2.QtCore import Slot
+from PySide2.QtWidgets import QApplication, QPushButton
+
 
 @Slot()
 def say_hello():

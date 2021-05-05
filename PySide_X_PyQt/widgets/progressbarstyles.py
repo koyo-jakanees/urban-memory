@@ -1,10 +1,11 @@
 # -*-coding:utf-8 -*-
 # continuation. ref: https://pythonpyqt.com/pyqt-progressbar/
 
-from random import randint
 import sys
+from random import randint
+
 from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QWidget, QApplication, QVBoxLayout, QProgressBar
+from PyQt5.QtWidgets import QApplication, QProgressBar, QVBoxLayout, QWidget
 
 StyleSheet = '''
 #RedProgressBar {

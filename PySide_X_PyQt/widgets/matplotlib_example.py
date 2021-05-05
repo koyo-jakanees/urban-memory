@@ -11,7 +11,6 @@ from PySide2.QtWidgets import (QAction, QApplication, QComboBox, QHBoxLayout,
                                QTableWidget, QTableWidgetItem, QVBoxLayout,
                                QWidget)
 
-
 """This example implements the interaction between Qt Widgets and a 3D
 matplotlib plot
 requires Qt_5.15"""

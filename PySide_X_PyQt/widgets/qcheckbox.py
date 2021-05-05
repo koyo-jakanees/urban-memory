@@ -2,12 +2,9 @@
 # ref: https://pythonbasics.org/qcheckbox/
 
 import sys
-from PyQt5.QtWidgets import (
-    QWidget,
-    QGridLayout,
-    QCheckBox,
-    QApplication
-)
+
+from PyQt5.QtWidgets import QApplication, QCheckBox, QGridLayout, QWidget
+
 
 class Window(QWidget):
     def __init__(self, parent=None):

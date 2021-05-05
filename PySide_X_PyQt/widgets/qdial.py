@@ -2,13 +2,9 @@
 # ref: https://pythonbasics.org/qdial/
 
 import sys
-from PyQt5.QtWidgets import (
-    QGridLayout,
-    QDial,
-    QWidget,
-    QApplication,
-    QLabel
-)
+
+from PyQt5.QtWidgets import QApplication, QDial, QGridLayout, QLabel, QWidget
+
 
 class QdialWindow(QWidget):
     def __init__(self, parent=None):

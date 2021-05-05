@@ -3,11 +3,12 @@
 #  guide source https://pythonspot.com/pyqt5-webkit-browser/
 import sys
 from optparse import OptionParser
+
 from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QApplication, QWidget
-from PyQt5.QtWebKitWidgets import QWebView, QWebPage
-from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtNetwork import *
+from PyQt5.QtWebKit import QWebSettings
+from PyQt5.QtWebKitWidgets import QWebPage, QWebView
+from PyQt5.QtWidgets import QApplication, QWidget
 
 
 class MyBrowser(QWebPage):

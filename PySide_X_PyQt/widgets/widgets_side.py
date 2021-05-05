@@ -1,9 +1,12 @@
 #-*-coding:utf-8 -*-
 
-import sys, random
+import random
+import sys
+
 from PySide2.QtCore import Slot
-from PySide2.QtWidgets import (QApplication, QWidget, QHBoxLayout,
-                                QPushButton, QLabel)
+from PySide2.QtWidgets import (QApplication, QHBoxLayout, QLabel, QPushButton,
+                               QWidget)
+
 """
 a widget with code only without using external ui files
 QPushButton  connects to a slot

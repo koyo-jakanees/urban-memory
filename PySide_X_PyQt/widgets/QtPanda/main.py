@@ -1,6 +1,6 @@
 import sys
-import pandas as pd
 
+import pandas as pd
 from PySide2.QtWidgets import QApplication
 from QtPandas.QDataFrame import QDataFrame
 
