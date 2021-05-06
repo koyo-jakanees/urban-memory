@@ -13,7 +13,8 @@ from PyQt5.QtWidgets import (
     QTextEdit,
     QApplication,
     QAction,
-    qApp
+    qApp,
+    QStyle
 )
 from PyQt5.QtCore import Qt
 
@@ -27,17 +28,20 @@ class DockingWindow(QMainWindow):
         layout = QHBoxLayout()
         
         # Add action for quiting application
-        exitAction = QAction('Q&uit', self)
+        exitAction = QAction(
+            self.style().standardIcon(QStyle.SP_DialogCancelButton), 'Q&uit', self)
         exitAction.setShortcut('Ctrl + Q')
         exitAction.setStatusTip('Exit application')
         exitAction.triggered.connect(qApp.quit)
         
+        # shows extra msg whenever user hovers the mouse poiner
+        self.statusBar()
         # set up the menu items
         menuBar = self.menuBar()
-        file = menuBar.addMenu('&File')
-        file.addAction('New')
-        file.addAction('S&ave')
-        file.addAction(exitAction)
+        fileMenu = menuBar.addMenu('&File')
+        fileMenu.addAction('New')
+        fileMenu.addAction('S&ave')
+        fileMenu.addAction(exitAction)
 
         self.items = QDockWidget('Dockers', self)
 
