@@ -4,15 +4,11 @@
 # see: https://pythonpyqt.com/qtimer/
 
 import sys
-from PyQt5.QtWidgets import (
-    QWidget,
-    QPushButton,
-    QApplication,
-    QListWidget,
-    QGridLayout,
-    QLabel
-)
-from PyQt5.QtCore import QTimer, QDateTime
+
+from PyQt5.QtCore import QDateTime, QTimer
+from PyQt5.QtWidgets import (QApplication, QGridLayout, QLabel, QListWidget,
+                             QPushButton, QWidget)
+
 
 class TimerWindow(QWidget):
     def __init__(self, parent=None):

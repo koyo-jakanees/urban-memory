@@ -5,19 +5,12 @@
 
 # imports
 import sys
-from PyQt5.QtWidgets import (
-    QDockWidget,
-    QHBoxLayout,
-    QListWidget,
-    QMainWindow,
-    QTextEdit,
-    QApplication,
-    QAction,
-    qApp,
-    QStyle,
-    QLabel
-)
+
 from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (QAction, QApplication, QDockWidget, QHBoxLayout,
+                             QLabel, QListWidget, QMainWindow, QStyle,
+                             QTextEdit, qApp)
+
 
 class DockingWindow(QMainWindow):
     def __init__(self, parent=None):

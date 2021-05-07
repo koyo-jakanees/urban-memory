@@ -10,7 +10,8 @@
 
 from PySide2.QtCore import QMetaObject
 from PySide2.QtGui import *
-from PySide2.QtWidgets import QWidget, QVBoxLayout, QListWidget, QPushButton, QHBoxLayout, QSpacerItem
+from PySide2.QtWidgets import (QHBoxLayout, QListWidget, QPushButton,
+                               QSpacerItem, QVBoxLayout, QWidget)
 
 
 class Ui_Form(object):

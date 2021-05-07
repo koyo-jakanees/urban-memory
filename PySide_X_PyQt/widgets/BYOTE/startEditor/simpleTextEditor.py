@@ -1,15 +1,9 @@
 import sys
-from PyQt5.QtWidgets import (
-    QMainWindow,
-    QFrame,
-    QPushButton,
-    QVBoxLayout,
-    QApplication,
-    QStyleFactory
-)
-from PyQt5.QtCore import *
-from PyQt5.QtGui import QFont
+
 from PyQt5.Qsci import QsciScintilla
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import (QApplication, QFrame, QMainWindow, QPushButton,
+                             QStyleFactory, QVBoxLayout)
 
 
 class CustomMainWindow(QMainWindow):
@@ -46,7 +40,7 @@ class CustomMainWindow(QMainWindow):
         # ! Make instance of QsciScintilla class!
         self.__editor = QsciScintilla()
         self.__editor.setText("Hello\n")
-        self.__editor.append("world")
+        self.__editor.append("world \n")
         self.__editor.setLexer(None)
         self.__editor.setUtf8(True)  # Set encoding to UTF-8
         self.__editor.setFont(self.__myFont)  # Will be overridden by lexer!
@@ -59,18 +53,20 @@ class CustomMainWindow(QMainWindow):
     ''''''
 
     def __btn_action(self):
+        self.__editor.append('Voila You just clicked the QSci button! \n')
         print("Hello World!")
 
     ''''''
-
-
-''' End Class '''
-
-if __name__ == '__main__':
+def main():
     app = QApplication(sys.argv)
     QApplication.setStyle(QStyleFactory.create('Fusion'))
     myGUI = CustomMainWindow()
 
     sys.exit(app.exec_())
+
+''' End Class '''
+
+if __name__ == '__main__':
+    main()
 
 ''''''
