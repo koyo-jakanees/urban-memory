@@ -10,10 +10,11 @@ See source for  code explanation.
 
 ```python
 import sys
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.Qsci import *
+
+from PyQt5.Qsci import QsciScintilla
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import (QApplication, QFrame, QMainWindow,QPushButton,
+                             QStyleFactory, QVBoxLayout)
 
 
 class CustomMainWindow(QMainWindow):
@@ -85,3 +86,49 @@ also qgis plugins follow this trend, but i prefer minimalist approach of importi
 packages and modules you use within an application. This helps understand the packages from 
 which a module is inherited and lowers the maintainance cost of an application or porting, migration or 
 even  upgrading to a newer package. For instance the Migration from `PyQt4` to `PyQt5` which saw widgets moved to the `QtWidgets` Module from `QtGui`. Unless you had prior knowledge of this, it would be hell migrating your legacy Qt application to recent APIs
+
+## Extending the editor.
+
+some usefull properties to extend the editor.
+>Text wrapping automatically breaks the line, such that everything fits in the viewable window. Notice however that wrapped lines don’t increment the line number, and that’s great! Imagine the mess if your text editor starts playing around with line numbers
+
+![wrap mode](../assets/wrapmode.png)
+![wrapping visual flags](../assets/wrappingVisualFlags.png)
+![start Flag](../assets/startFlag.png)
+![indent Flag](../assets/indentOption.png)
+
+Possible errors that you'll encounter
+Most of them are self explanatory
+by removing the keyword `endFlag` should do the magic
+```sh
+Traceback (most recent call last):
+  File "simpleTextEditor.py", line 82, in <module>
+    main()
+  File "simpleTextEditor.py", line 75, in main
+    myGUI = CustomMainWindow()
+  File "simpleTextEditor.py", line 50, in __init__
+    self.__editor.setWrapVisualFlags(
+TypeError: setWrapVisualFlags(self, QsciScintilla.WrapVisualFlag, startFlag: QsciScintilla.WrapVisualFlag = QsciScintilla.WrapFlagNone, indent: int = 0): 'endFlag' is not a valid keyword argument
+```
+and due to a typo `QsciScintilla.WrapFlagText` instead of `QsciScintilla.WrapFlagByText`
+```sh
+Traceback (most recent call last):
+  File "simpleTextEditor.py", line 81, in <module>
+    main()
+  File "simpleTextEditor.py", line 74, in main
+    myGUI = CustomMainWindow()
+  File "simpleTextEditor.py", line 51, in __init__
+    endFlag=QsciScintilla.WrapFlagByBorder, startFlag=QsciScintilla.WrapFlagText)
+AttributeError: type object 'QsciScintilla' has no attribute 'WrapFlagText'
+```
+and
+```sh
+Traceback (most recent call last):
+  File "simpleTextEditor.py", line 82, in <module>
+    main()
+  File "simpleTextEditor.py", line 75, in main
+    myGUI = CustomMainWindow()
+  File "simpleTextEditor.py", line 55, in __init__
+    self.__editor.setWrapIndentMode(startFlag=QsciScintilla.WrapIndentFixed)
+TypeError: setWrapIndentMode() takes no keyword arguments
+```

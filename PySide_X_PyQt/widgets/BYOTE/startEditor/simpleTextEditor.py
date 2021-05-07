@@ -44,6 +44,17 @@ class CustomMainWindow(QMainWindow):
         self.__editor.setLexer(None)
         self.__editor.setUtf8(True)  # Set encoding to UTF-8
         self.__editor.setFont(self.__myFont)  # Will be overridden by lexer!
+        self.__editor.setWrapMode(QsciScintilla.WrapWord)
+        # available wrap modes: 
+        # QsciScintilla.WrapNone, WrapWord, WrapCharacter, WrapWhitespace
+        self.__editor.setWrapVisualFlags(
+            QsciScintilla.WrapFlagByText,
+            startFlag=QsciScintilla.WrapFlagByText,
+            indent=4)
+        # setWrapVisualFlags(endFlag, startFlag, indent)
+        # see: readMe
+        self.__editor.setWrapIndentMode(QsciScintilla.WrapIndentFixed)
+        self.__editor.textChanged.connect(self.text_changed) #signal typing
 
         # ! Add editor to layout !
         self.__lyt.addWidget(self.__editor)
@@ -56,6 +67,8 @@ class CustomMainWindow(QMainWindow):
         self.__editor.append('Voila You just clicked the QSci button! \n')
         print("Hello World!")
 
+    def text_changed(self):
+        print({self.__editor.text()})
     ''''''
 def main():
     app = QApplication(sys.argv)
