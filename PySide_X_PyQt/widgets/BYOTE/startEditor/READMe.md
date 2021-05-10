@@ -132,3 +132,5 @@ Traceback (most recent call last):
     self.__editor.setWrapIndentMode(startFlag=QsciScintilla.WrapIndentFixed)
 TypeError: setWrapIndentMode() takes no keyword arguments
 ```
+![End of Line options](../assets/EOLOptions.png)
+![End of line visibilty](../assets/EOLVisibilty.png)
