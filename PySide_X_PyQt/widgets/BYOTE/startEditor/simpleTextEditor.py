@@ -1,7 +1,8 @@
 import sys
 
 from PyQt5.Qsci import QsciScintilla
-from PyQt5.QtGui import QFont, QColor
+from PyQt5.QtCore import QSize
+from PyQt5.QtGui import QFont, QColor, QImage
 from PyQt5.QtWidgets import (QApplication, QFrame, QMainWindow, QPushButton,
                              QStyleFactory, QVBoxLayout)
 
@@ -44,6 +45,9 @@ class CustomMainWindow(QMainWindow):
         self.__editor.setLexer(None)
         self.__editor.setUtf8(True)  # Set encoding to UTF-8
         self.__editor.setFont(self.__myFont)  # Will be overridden by lexer!
+
+        #simple editor options
+
         self.__editor.setEolVisibility(True) #sets the end of each line with an EOL character
         self.__editor.setIndentationsUseTabs(False) #determines whether indent uses tabs or whitespace char.
         self.__editor.setTabWidth(4)
@@ -54,6 +58,30 @@ class CustomMainWindow(QMainWindow):
         self.__editor.setCaretLineVisible(True)
         self.__editor.setCaretLineBackgroundColor(QColor("#1fff0000"))
         self.__editor.setCaretWidth(5)
+
+        #Margin SetUp.
+        self.__editor.setMarginType(3, QsciScintilla.NumberMargin)
+        # self.__editor.setMarginType(2, QsciScintilla.TextMargin)
+        # Symbol Margin
+        sym_0 = QImage("icons/sym_0.png").scaled(QSize(16, 16))
+        sym_1 = QImage("icons/sym_1.png").scaled(QSize(16, 16))
+        sym_2 = QImage("icons/sym_2.png").scaled(QSize(16, 16))
+        sym_3 = QImage("icons/sym_3.png").scaled(QSize(16, 16))
+        sym_4 = QsciScintilla.Circle
+        self.__editor.markerDefine(sym_0, 0)
+        self.__editor.markerDefine(sym_1, 1)
+        self.__editor.markerDefine(sym_2, 2)
+        self.__editor.markerDefine(sym_3, 3)
+        self.__editor.markerDefine(sym_4, 4)
+        self.__editor.setMarginType(3, QsciScintilla.SymbolMargin)
+        # self.__editor.setMarginType(2, QsciScintilla.SymbolMarginDefaultBackgroundColor)
+        # self.__editor.setMarginType(3, QsciScintilla.SymbolMarginDefaultForegroundColor)
+        self.__editor.setMarginWidth(3, '00000')
+        self.__editor.setMarginMarkerMask(1, 0b10101)
+        self.__editor.setMarginMarkerMask(3, 0b01010)
+        self.__editor.markerAdd(3, 2)
+
+        # self.__editor.setMarginsBackgroundColor(QColor("#ff0000ff"))
         self.__editor.setWrapMode(QsciScintilla.WrapWord)
         # available wrap modes: 
         # QsciScintilla.WrapNone, WrapWord, WrapCharacter, WrapWhitespace
