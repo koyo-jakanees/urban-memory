@@ -1,7 +1,7 @@
 import sys
 
 from PyQt5.Qsci import QsciScintilla
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QColor
 from PyQt5.QtWidgets import (QApplication, QFrame, QMainWindow, QPushButton,
                              QStyleFactory, QVBoxLayout)
 
@@ -44,6 +44,16 @@ class CustomMainWindow(QMainWindow):
         self.__editor.setLexer(None)
         self.__editor.setUtf8(True)  # Set encoding to UTF-8
         self.__editor.setFont(self.__myFont)  # Will be overridden by lexer!
+        self.__editor.setEolVisibility(True) #sets the end of each line with an EOL character
+        self.__editor.setIndentationsUseTabs(False) #determines whether indent uses tabs or whitespace char.
+        self.__editor.setTabWidth(4)
+        self.__editor.setIndentationGuides(True)
+        self.__editor.setTabIndents(True)
+        self.__editor.setAutoIndent(True)
+        self.__editor.setCaretForegroundColor(QColor("#ff0000ff"))
+        self.__editor.setCaretLineVisible(True)
+        self.__editor.setCaretLineBackgroundColor(QColor("#1fff0000"))
+        self.__editor.setCaretWidth(5)
         self.__editor.setWrapMode(QsciScintilla.WrapWord)
         # available wrap modes: 
         # QsciScintilla.WrapNone, WrapWord, WrapCharacter, WrapWhitespace

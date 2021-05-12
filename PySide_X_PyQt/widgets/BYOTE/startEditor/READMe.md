@@ -134,3 +134,9 @@ TypeError: setWrapIndentMode() takes no keyword arguments
 ```
 ![End of Line options](../assets/EOLOptions.png)
 ![End of line visibilty](../assets/EOLVisibilty.png)
+![Indentation character](../assets/indent_char.png)
+![Indentation guides](../assets/indent_guides.png)
+![Indentation spaces](../assets/indent_spaces.png)
+![Indentation Auto](../assets/Auto_indent.png)
+![Caret Visibility](../assets/caret_viz.png)
+![Caret foreground](../assets/caret_foreground.png)
