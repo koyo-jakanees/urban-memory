@@ -48,7 +48,7 @@ class CustomMainWindow(QMainWindow):
 
         #simple editor options
 
-        self.__editor.setEolVisibility(True) #sets the end of each line with an EOL character
+        self.__editor.setEolVisibility(False) #sets the end of each line with an EOL character
         self.__editor.setIndentationsUseTabs(False) #determines whether indent uses tabs or whitespace char.
         self.__editor.setTabWidth(4)
         self.__editor.setIndentationGuides(True)
@@ -60,29 +60,45 @@ class CustomMainWindow(QMainWindow):
         self.__editor.setCaretWidth(5)
 
         #Margin SetUp.
-        self.__editor.setMarginType(3, QsciScintilla.NumberMargin)
+        self.__editor.setMarginType(3, self.__editor.NumberMargin)
+        self.__editor.setMarginsForegroundColor(QColor("#ff888888"))
         # self.__editor.setMarginType(2, QsciScintilla.TextMargin)
         # Symbol Margin
         sym_0 = QImage("icons/sym_0.png").scaled(QSize(16, 16))
         sym_1 = QImage("icons/sym_1.png").scaled(QSize(16, 16))
         sym_2 = QImage("icons/sym_2.png").scaled(QSize(16, 16))
         sym_3 = QImage("icons/sym_3.png").scaled(QSize(16, 16))
-        sym_4 = QsciScintilla.Circle
+        sym_4 = self.__editor.Circle
         self.__editor.markerDefine(sym_0, 0)
         self.__editor.markerDefine(sym_1, 1)
         self.__editor.markerDefine(sym_2, 2)
         self.__editor.markerDefine(sym_3, 3)
         self.__editor.markerDefine(sym_4, 4)
-        self.__editor.setMarginType(3, QsciScintilla.SymbolMargin)
+        self.__editor.setMarginType(3, self.__editor.SymbolMargin)
         # self.__editor.setMarginType(2, QsciScintilla.SymbolMarginDefaultBackgroundColor)
         # self.__editor.setMarginType(3, QsciScintilla.SymbolMarginDefaultForegroundColor)
-        self.__editor.setMarginWidth(3, '00000')
-        self.__editor.setMarginMarkerMask(1, 0b10101)
-        self.__editor.setMarginMarkerMask(3, 0b01010)
+        self.__editor.setMarginWidth(1, '00000')
+        self.__editor.setMarginMarkerMask(1, 0b1111)
+        self.__editor.setMarginMarkerMask(2, 0b1111)
         self.__editor.markerAdd(3, 2)
+        # Display a few symbols, and keep their handles stored
+        self.__editor.markerAdd(0, 0)   # Green dot on line 0+1
+        self.__editor.markerAdd(4, 0)   # Green dot on line 4+1
+        self.__editor.markerAdd(5, 0)   # Green dot on line 5+1
+        self.__editor.markerAdd(8, 3)   # Red arrow on line 8+1
+        self.__editor.markerAdd(9, 2)   # Red dot on line 9+1
+
+        self.__editor.setFolding(self.__editor.BoxedFoldStyle, 4)
+        self.__editor.SendScintilla(self.__editor.SCI_SETMULTIPLESELECTION, True)
+        self.__editor.SendScintilla(self.__editor.SCI_SETMULTIPASTE, 1)
+        self.__editor.SendScintilla(self.__editor.SCI_SETADDITIONALSELECTIONTYPING, True)
+        self.__editor.SendScintilla(self.__editor.SCI_SETINDENTATIONGUIDES, self.__editor.SC_IV_REAL);
+        self.__editor.SendScintilla(self.__editor.SCI_SETTABWIDTH, 4)
 
         # self.__editor.setMarginsBackgroundColor(QColor("#ff0000ff"))
         self.__editor.setWrapMode(QsciScintilla.WrapWord)
+        self.__editor.setWrapIndentMode(QsciScintilla.WrapIndentIndented)
+
         # available wrap modes: 
         # QsciScintilla.WrapNone, WrapWord, WrapCharacter, WrapWhitespace
         self.__editor.setWrapVisualFlags(
@@ -91,7 +107,7 @@ class CustomMainWindow(QMainWindow):
             indent=4)
         # setWrapVisualFlags(endFlag, startFlag, indent)
         # see: readMe
-        self.__editor.setWrapIndentMode(QsciScintilla.WrapIndentFixed)
+        self.__editor.setWrapIndentMode(QsciScintilla.WrapIndentIndented)
         self.__editor.textChanged.connect(self.text_changed) #signal typing
 
         # ! Add editor to layout !
