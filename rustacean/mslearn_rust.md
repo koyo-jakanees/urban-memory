@@ -116,12 +116,12 @@ for indepth coverage
 [cargo book](https://doc.rust-lang.org/cargo/guide/why-cargo-exists.html)
 >Cargo is the Rust package manager. It is a tool that allows Rust packages to declare their various dependencies and ensure that you’ll always get a repeatable build.
 
->To accomplish this goal, Cargo does four things:
+> To accomplish this goal, Cargo does four things:
 
-> - Introduces two metadata files with various bits of package information.
->  - Fetches and builds your package’s dependencies.
->  - Invokes rustc or another build tool with the correct parameters to build your package.
->  - Introduces conventions to make working with Rust packages easier.
+>> - Introduces two metadata files with various bits of package information.
+>> - Fetches and builds your package’s dependencies.
+>> - Invokes rustc or another build tool with the correct parameters to build your package.
+>> - Introduces conventions to make working with Rust packages easier.
 
 The `cargo run` cmd combines two process i.e `cargo build` to generate/compile the binary [binary crate](https://doc.rust-lang.org/cargo/appendix/glossary.html#crate) and the `run` the crate/program in  one step
 
