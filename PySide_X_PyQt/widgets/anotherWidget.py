@@ -8,9 +8,10 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *
+from PySide2.QtCore import QMetaObject
 from PySide2.QtGui import *
-from PySide2.QtWidgets import *
+from PySide2.QtWidgets import (QHBoxLayout, QListWidget, QPushButton,
+                               QSpacerItem, QVBoxLayout, QWidget)
 
 
 class Ui_Form(object):

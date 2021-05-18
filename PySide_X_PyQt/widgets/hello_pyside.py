@@ -1,8 +1,10 @@
 # -*- coding:utf-8 -*-
 
-import sys
 import random
-from PySide2 import QtCore, QtWidgets, QtGui
+import sys
+
+from PySide2 import QtCore, QtGui, QtWidgets
+
 
 class MyWidget(QtWidgets.QWidget):
     def __init__(self):

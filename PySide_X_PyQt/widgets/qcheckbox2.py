@@ -2,13 +2,10 @@
 # ref: https://www.delftstack.com/tutorial/pyqt5/pyqt5-checkbox/
 
 import sys
-from PyQt5.QtWidgets import (
-    QWidget,
-    QLabel,
-    QHBoxLayout,
-    QCheckBox,
-    QApplication
-)
+
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QHBoxLayout, QLabel,
+                             QWidget)
+
 
 class BasicWindow(QWidget):
     def __init__(self, parent=None):

@@ -1,5 +1,5 @@
-from PySide2.QtWidgets import QWidget, QTableView, QHBoxLayout, QHeaderView
 from PySide2.QtCore import QAbstractTableModel, QModelIndex, Qt
+from PySide2.QtWidgets import QHBoxLayout, QHeaderView, QTableView, QWidget
 
 
 class QDataFrameTableModel(QAbstractTableModel):

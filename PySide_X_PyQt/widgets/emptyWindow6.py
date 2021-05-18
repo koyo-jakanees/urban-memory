@@ -5,8 +5,10 @@ Get hands dirty with PySide6
 random online so=nippets, not my work to license
 """
 import sys
-from PySide6.QtWidgets import QApplication, QLabel, QWidget
+
 from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QApplication, QLabel, QWidget
+
 
 class EmptyWindow(QWidget):
     def __init__(self):

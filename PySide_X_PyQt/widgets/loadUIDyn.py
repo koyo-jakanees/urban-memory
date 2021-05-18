@@ -1,8 +1,10 @@
-import sys
 import random
+import sys
+
+from PySide2.QtCore import QFile, QIODevice
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtWidgets import QApplication
-from PySide2.QtCore import QFile, QIODevice
+
 
 def add_item():
     window.main_list.addItem(f"test {random.randint(0, 100)}")

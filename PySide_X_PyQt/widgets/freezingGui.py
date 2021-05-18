@@ -3,15 +3,10 @@
 import sys
 from time import sleep
 
-from PyQt5.QtCore import Qt, QObject, QThread, pyqtSignal
-from PyQt5.QtWidgets import (
-    QApplication,
-    QLabel,
-    QPushButton,
-    QVBoxLayout,
-    QWidget,
-    QMainWindow
-)
+from PyQt5.QtCore import QObject, Qt, QThread, pyqtSignal
+from PyQt5.QtWidgets import (QApplication, QLabel, QMainWindow, QPushButton,
+                             QVBoxLayout, QWidget)
+
 
 # Step 1: Create a worker class
 class Worker(QObject):
