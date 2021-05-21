@@ -1,9 +1,11 @@
 // from cs196 illinois https://www.youtube.com/watch?v=JXDkdaGEuVU
 use std::thread;
 use std::time::Duration;
+// use std::sync::mpsc;
 
 fn main() {
-    let handle = std::thread::spawn(|| {
+    // let (tx, rx) = mpsc::channel();
+    let handle = std::thread::spawn(move || {
         for i in 0..10 {
             println!("Hello number {} from the spawn thread", i);
             thread::sleep(Duration::from_millis(1));
