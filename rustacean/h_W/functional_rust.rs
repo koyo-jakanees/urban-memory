@@ -66,3 +66,55 @@
  * Chaining higher order functions together for powerful use cases.building an entire distributed data processing sytem
  * */
 #[derive(PartialEq, Debug)]
+struct Player {
+    name: String,
+    points: u32,
+    assisted_points: u32,
+    is_all_star: bool
+}
+
+fn main() {
+    // imagine that we just pulled data from an NBA db
+
+    let players = vec![
+        Player{
+            name: String::from("Lebron James"),
+            points: 1544,
+            assisted_points: 431,
+            is_all_star: true
+        },
+        Player{
+            name: String::from("Timofey Mozgov"),
+            points: 1264,
+            assisted_points: 256,
+            is_all_star: true
+        },
+        Player{
+            name: String::from("James Harden"),
+            points: 2096,
+            assisted_points: 513,
+            is_all_star: false
+        },
+        Player{
+            name: String::from("Joel Embiid"),
+            points: 984,
+            assisted_points: 354,
+            is_all_star: true
+        },
+        Player{
+            name: String::from("Luol Deng"),
+            points: 1254,
+            assisted_points: 564,
+            is_all_star: false
+        }
+    ];
+    let all_star_sum = all_star_summer(players);
+    println!("{}", all_star_sum);
+}
+// can be optimized and improved
+fn all_star_summer(players: Vec<Player>) -> u32 {
+    players.into_iter()
+    .filter(|player| player.is_all_star) //filter out only all stars
+    .map(|all_star| all_star.points + all_star.assisted_points) //maps the sum of points contrib by the players
+    .fold(0, |acc, points| acc + points)
+}
