@@ -1,11 +1,14 @@
-import QtQuick 2.15
+99import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 ApplicationWindow {
     visible: true
     width: 400
     height: 60
+    x: screen.desktopAvailableWidth - width - 12
+    y: screen.desktopAvailableHeight - height - 48
     title: qsTr("ClockApp")
+    flags: Qt.FramelessWindowHint | Qt.Window
     property string currTime: "00:00:00"
     property QtObject backend
 
