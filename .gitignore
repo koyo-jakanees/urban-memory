@@ -15,3 +15,7 @@ shell/db_backup.*
 target/
 img/misc.png
 bin/
+build*/
+*~
+*.user
+*.o
