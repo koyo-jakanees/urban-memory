@@ -29,3 +29,18 @@ gcc `pkg-config --cflags gtk4` -o example-0 example-0.c `pkg-config --libs gtk4`
 ```
 
 to run the examples.
+
+## compiling Glib C program using glb
+
+first install the glib dev-tools
+`sudo apt install libglib2.0-dev`
+
+compile using:
+``gcc main.c `pkg-config --cflags --libs glib-2.0` -o hello`` or `gcc main.c $(pkg-config --cflags --libs glib-2.0) -o hello`
+
+Using pkg-config to display version of  the currently installed GLib
+`pkg-config --modversion glib-2.0`
+
+Programmatically check compile the glib_version.c as follows
+``gcc glib_version.c `pkg-config --cflags --libs glib-2.0` -o version``
+`gcc glib_version.c $(pkg-config --cflags --libs glib-2.0) -o version`
