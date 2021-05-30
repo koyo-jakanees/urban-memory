@@ -21,3 +21,11 @@ gcc -o gladewin main.c -Wall `pkg-config --cflags --libs gtk+-3.0` -export-dynam
 ```
 
 Note: some python example included to have a feel. If you are comfortable programming in PyQt it shoul be a breeze.
+
+[examples](./examples) contains code to try from the gtk developer main forum for getting started. User Interface is generated programatically instead of using glade visual user interface designer.
+
+```sh
+gcc `pkg-config --cflags gtk4` -o example-0 example-0.c `pkg-config --libs gtk4`
+```
+
+to run the examples.
