@@ -3,8 +3,11 @@
 // the cookbook: https://docs.rs/csv/1.1.6/csv/cookbook/index.html
 
 // import standard library's I/O module to read from stdin
+use std::env;
+use std::ffi::OsString;
 use std::error::Error;
 use std::io;
+use std::fs::File;
 use std::process;
 
 // the 'main' function where the program starts
@@ -16,8 +19,16 @@ fn main() {
     }
 
 }
+fn get_first_arg() -> Result<OsString, Box<dyn Error>>{
+    match env::args_os().nth(1){
+        None => Err(From::from("Expected 1 argument, but got none")),
+        Some(file_path) => Ok(file_path),
+    }
+}
 
 fn run() -> Result<(), Box<dyn Error>> {
+    let file_path = get_first_arg()?;
+    let file = File::open(file_path);
     let mut reader = csv::Reader::from_reader(io::stdin());
 
     // loop over each record in the file
