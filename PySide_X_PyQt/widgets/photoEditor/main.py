@@ -148,27 +148,28 @@ class SimplePicEditor(QMainWindow):
         # Create container QWidget to hold all widgets inside dock widget
         self.tools_contents = QWidget()
         # Create tool push buttons
-        self.rotate90 = QPushButton("Rotate 90°")
-        self.rotate90.setMinimumSize(QSize(130, 40))
-        self.rotate90.setStatusTip('Rotate image 90° clockwise')
-        self.rotate90.clicked.connect(self.rotateImage90)
-        self.rotate180 = QPushButton("Rotate 180°")
-        self.rotate180.setMinimumSize(QSize(130, 40))
-        self.rotate180.setStatusTip('Rotate image 180° clockwise')
-        self.rotate180.clicked.connect(self.rotateImage180)
-        self.flip_horizontal = QPushButton("Flip Horizontal")
-        self.flip_horizontal.setMinimumSize(QSize(130, 40))
-        self.flip_horizontal.setStatusTip(
+        self.rotate90_btn = QPushButton("Rotate 90°")
+        self.rotate90_btn.setMinimumSize(QSize(130, 40))
+        self.rotate90_btn.setStatusTip('Rotate image 90° clockwise')
+        self.rotate90_btn.clicked.connect(self.rotate_image90)
+        self.rotate180_btn = QPushButton("Rotate 180°")
+        self.rotate180_btn.setMinimumSize(QSize(130, 40))
+        self.rotate180_btn.setStatusTip('Rotate image 180° clockwise')
+        self.rotate180_btn.clicked.connect(self.rotate_image180)
+        self.flip_horizontal_btn = QPushButton("Flip Horizontal")
+        self.flip_horizontal_btn.setMinimumSize(QSize(130, 40))
+        self.flip_horizontal_btn.setStatusTip(
             'Flip image across horizontal axis')
-        self.flip_horizontal.clicked.connect(self.hor_flip_action)
-        self.flip_vertical = QPushButton("Flip Vertical")
-        self.flip_vertical.setMinimumSize(QSize(130, 40))
-        self.flip_vertical.setStatusTip('Flip image across vertical axis')
-        self.flip_vertical.clicked.connect(self.vert_flip_action)
-        self.resize_half = QPushButton("Resize Half")
-        self.resize_half.setMinimumSize(QSize(130, 40))
-        self.resize_half.setStatusTip('Resize image to half the original size')
-        self.resize_half.clicked.connect(self.resize_half)
+        self.flip_horizontal_btn.clicked.connect(self.flip_horizontal)
+        self.flip_vertical_btn = QPushButton("Flip Vertical")
+        self.flip_vertical_btn.setMinimumSize(QSize(130, 40))
+        self.flip_vertical_btn.setStatusTip('Flip image across vertical axis')
+        self.flip_vertical_btn.clicked.connect(self.flip_vertical)
+        self.resize_half_btn = QPushButton("Resize Half")
+        self.resize_half_btn.setMinimumSize(QSize(130, 40))
+        self.resize_half_btn.setStatusTip(
+            'Resize image to half the original size')
+        self.resize_half_btn.clicked.connect(self.resize_half)
         # Set up vertical layout to contain all the push buttons
         dock_v_box = QVBoxLayout()
         dock_v_box.addWidget(self.rotate90)
@@ -198,10 +199,11 @@ class SimplePicEditor(QMainWindow):
         # Use setSizePolicy to specify how the widget can be resized,
         # horizontally and vertically. Here, the image will stretch
         # horizontally, but not vertically.
-        self.image_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Ignored)
+        self.image_label.setSizePolicy(
+            QSizePolicy.Expanding, QSizePolicy.Ignored)
         self.setCentralWidget(self.image_label)
 
-    def openImage(self):
+    def open_Image(self):
         """
         Open an image file and display its contents in label widget.
         Display error message if image can't be opened.
@@ -221,7 +223,7 @@ class SimplePicEditor(QMainWindow):
                 self, "Error", "Unable to open image.", QMessageBox.Ok)
         self.print_action.setEnabled(True)
 
-    def saveImage(self):
+    def save_Image(self):
         """
         Save the image.
         Display error message if image can't be saved.
@@ -236,7 +238,14 @@ class SimplePicEditor(QMainWindow):
             QMessageBox.information(self, "Error", "Unable to save image.",
                                     QMessageBox.Ok)
 
-    def printImage(self):
+    def clear_Image(self):
+        """
+        Clears current image in QLabel widget
+        """
+        self.image_label.clear()
+        self.image = QPixmap()  # reset pixmap so that isNull() = True
+
+    def print_Image(self):
         """
         Print image.
         """
@@ -260,3 +269,69 @@ class SimplePicEditor(QMainWindow):
             # of the viewport
             size = QSize(self.image_label.pixmap().size())
             size.scale(rect.size(), Qt.KeepAspectRatio)
+            painter.setViewport(
+                rect.x(), rect.y(), size.width(), size.height())
+            painter.setWindow(self.image_label.pixmap().rect())
+            # Scale the image_label to fit the rect source (0, 0)
+            painter.drawPixmap(0, 0, self.image_label.pixmap())
+            # End painting
+            painter.end()
+
+    def rotate_image90(self):
+        """
+        Rotate image 90° clockwise
+        """
+        if self.image.isNull() is False:
+            transform90 = QTransform().rotate(90)
+            pixmap = QPixmap(self.image)
+            rotated = pixmap.transformed(
+                transform90, mode=Qt.SmoothTransformation)
+            self.image_label.setPixmap(
+                rotated.scaled(
+                    self.image_label.size(),
+                    Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            self.image = QPixmap(rotated)
+            self.image_label.repaint()  # repaint the child widget
+        else:
+            # No ima
+            pass
+
+    def rotate_image180(self):
+        """
+        Rotate image 180° clockwise
+        """
+        if self.image.isNull() is False:
+            transform180 = QTransform().rotate(180)
+            pixmap = QPixmap(self.image)
+            rotated = pixmap.transformed(
+                transform180, mode=Qt.SmoothTransformation)
+            self.image_label.setPixmap(
+                rotated.scaled(
+                    self.image_label.size(),
+                    Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            # In order to keep being allowed to rotate the image, set the
+            # rotated image as self.image
+            self.image = QPixmap(rotated)
+            self.image_label.repaint()  # repaint the child widget
+        else:
+            # No image to rotate
+            pass
+
+    def flip_horizontal(self):
+        """
+        Mirror the image across the horizontal axis
+        """
+        if self.image.isNull() is False:
+            flip_h = QTransform().scale(-1, 1)
+            pixmap = QPixmap(self.image)
+            flipped = pixmap.transformed(flip_h)
+            self.image_label.setPixmap(
+                flipped.scaled(
+                    self.image_label.size(),
+                    Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            self.image = QPixmap(flipped)
+            self.image_label.repaint()
+        else:
+            # no image flip
+            pass
+        
