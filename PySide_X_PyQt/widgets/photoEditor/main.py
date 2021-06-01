@@ -123,7 +123,7 @@ class SimplePicEditor(QMainWindow):
             'About &Qt', self, triggered=qApp.aboutQt)
 
         self.normalSize_action = QAction(
-            '&Normal Size', self, shortcut="Ctrl+S", enabled=False,
+            '&Normal Size', self, shortcut="Ctrl+J", enabled=False,
             triggered=self.normalSize)
 
         # Menu bar for the application
@@ -162,7 +162,7 @@ class SimplePicEditor(QMainWindow):
         view_menu.addAction(self.toggle_dock_tools_act)
 
         # create help menu and actions
-        help_menu = bar_menu.addMenu()
+        help_menu = bar_menu.addMenu('&Help')
         help_menu.addAction(self.about_action)
         help_menu.addSeparator()
         help_menu.addAction(self.aboutQt_action)
@@ -170,9 +170,9 @@ class SimplePicEditor(QMainWindow):
         self.setStatusBar(QStatusBar(self))
 
     def updateActions(self):
-        self.zoomIn_Act.setEnabled(not self.fit_to_window_action.isChecked())
-        self.zoomOut_Act.setEnabled(not self.fit_to_window_action.isChecked())
-        self.normalSize_Act.setEnabled(not self.fit_to_window_action.isChecked())
+        self.zoomIn_action.setEnabled(not self.fit_to_window_action.isChecked())
+        self.zoomOut_action.setEnabled(not self.fit_to_window_action.isChecked())
+        self.normalSize_action.setEnabled(not self.fit_to_window_action.isChecked())
 
     def createToolBar(self):
         """Create toolbar for photo editor GUI"""
@@ -187,6 +187,9 @@ class SimplePicEditor(QMainWindow):
         tool_bar.addAction(self.clear_action)
         tool_bar.addSeparator()
         tool_bar.addAction(self.exit_action)
+        tool_bar.addSeparator()
+        tool_bar.addAction(self.zoomIn_action)
+        tool_bar.addAction(self.zoomOut_action)
 
     def createToolsDockWidget(self):
         """Use View -> Edit Image Tools menu and click the dock widget on or off.
@@ -477,8 +480,8 @@ class SimplePicEditor(QMainWindow):
         self.adjustScrollBar(self.scrollArea.horizontalScrollBar(), factor)
         self.adjustScrollBar(self.scrollArea.verticalScrollBar(), factor)
 
-        self.zoomIn_Act.setEnabled(self.scaleFactor < 3.0)
-        self.zoomOut_Act.setEnabled(self.scaleFactor > 0.333)
+        self.zoomIn_action.setEnabled(self.scaleFactor < 3.0)
+        self.zoomOut_action.setEnabled(self.scaleFactor > 0.333)
 
     def adjustScrollBar(self, scrollBar, factor):
         scrollBar.setValue(int(factor * scrollBar.value()
