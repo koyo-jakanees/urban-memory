@@ -106,16 +106,27 @@ class SimplePicEditor(QMainWindow):
             '&Fit to window', self, checkable=True)
         self.fit_to_window_action.setEnabled(False)
         self.fit_to_window_action.setShortcut('Ctrl+F')
+        self.fit_to_window_action.setStatusTip(
+            'Fit image to window size'
+        )
         self.fit_to_window_action.triggered.connect(self.fit_to_window)
 
-        self.zoomIn_action = QAction('Zoom &In (25%)', self)
+        self.zoomIn_action = QAction(
+            QIcon('assets/zoomIn.png'), 'Zoom &In (25%)', self)
         self.zoomIn_action.setEnabled(False)
         self.zoomIn_action.setShortcut('Ctrl++')
+        self.zoomIn_action.setStatusTip(
+            'Zoom in on image'
+        )
         self.zoomIn_action.triggered.connect(self.zoomIn)
 
-        self.zoomOut_action = QAction('Zoom &Out (25%)', self)
+        self.zoomOut_action = QAction(
+            QIcon('assets/zoomout.png'), 'Zoom &Out (25%)', self)
         self.zoomOut_action.setEnabled(False)
         self.zoomOut_action.setShortcut('Ctrl+-')
+        self.zoomOut_action.setStatusTip(
+            'Zoom out image'
+        )
         self.zoomOut_action.triggered.connect(self.zoomOut)
 
         self.about_action = QAction('&About', self, triggered=self.about)
@@ -183,6 +194,7 @@ class SimplePicEditor(QMainWindow):
         # Add actions to toolbar
         tool_bar.addAction(self.open_action)
         tool_bar.addAction(self.save_action)
+        tool_bar.addSeparator()
         tool_bar.addAction(self.print_action)
         tool_bar.addAction(self.clear_action)
         tool_bar.addSeparator()
