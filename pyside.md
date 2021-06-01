@@ -1,6 +1,9 @@
 <!-- widgets developed using PySide 2 or 6 and pyqt -->
 # Pyside X PyQt development for rapid GUIs
 
+Edit: the book **Beginning PyQt** is also a good start point and 
+some of the snippets here are derived from the book too. The book also contain _code Explantion_ section which concised describes what each line  of code does.
+
 Since both PySide and PyQt are python bindings to the  Qt C++ framework, generated using Shiboken and Sip respctively; they have subtle differences.
 Most common ones would be in the naming of generated classes and modules e.g in imports
 `PySide`: by Qt company (Qt for Python project)

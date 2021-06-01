@@ -43,7 +43,7 @@ class EditorWindow(QMainWindow):
     def createMenu(self):
         """Create menubar and menu actions"""
         # Create actions for file menu
-        self.exit_act = QAction(QIcon('images/exit.png'), 'Exit', self)
+        self.exit_act = QAction(QIcon('assets/exit.png'), 'Exit', self)
         self.exit_act.setShortcut('Ctrl+Q')
         self.exit_act.setStatusTip('Quit program')
         self.exit_act.triggered.connect(self.close)
@@ -93,10 +93,16 @@ class EditorWindow(QMainWindow):
         else:
             self.showNormal()
 
+
 # Run program
+def main():
+    """runs the main program"""
+    app = QApplication(sys.argv)
+    flags = Qt.WindowFlags()
+    type_ = Qt.Window
+    window = EditorWindow(parent=None, flags=flags)
+    sys.exit(app.exec_())
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = EditorWindow()
-    sys.exit(app.exec_())
+    main()
