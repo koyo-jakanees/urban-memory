@@ -2,8 +2,9 @@
 # -*-coding:utf-8 -*-
 
 import sys
+import math
 from PyQt5.QtCore import Qt, QSize, QRect
-from PyQt5.QtGui import QIcon, QPixmap, QTransform, QPainter
+from PyQt5.QtGui import QIcon, QPalette, QPixmap, QTransform, QPainter
 from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
 from PyQt5.QtWidgets import (
     QApplication,
@@ -19,7 +20,9 @@ from PyQt5.QtWidgets import (
     QToolBar,
     QStatusBar,
     QPushButton,
-    QVBoxLayout
+    QVBoxLayout,
+    qApp,
+    QScrollArea
 )
 
 
@@ -27,6 +30,7 @@ class SimplePicEditor(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi()
+        self.scaleFactor = 0.0
 
     def setupUi(self):
         """Sets up the GUI's for the application and displays to screen"""
@@ -37,33 +41,39 @@ class SimplePicEditor(QMainWindow):
         self.createMenu()
         self.createToolBar()
         self.photoEditorWidgets()
+        self.resize(800, 800)
 
         self.show()
 
     def createMenu(self):
         """Generate Menu elements for the editor GUI"""
         # create menu actions for file menu: open, save and print image.
-        self.open_action = QAction(QIcon('assets/open.png'), '&Open', self)
+        self.open_action = QAction(
+            QIcon('assets/open.png'), '&Open', self)
         self.open_action.setShortcut('Ctrl+O')
         self.open_action.setStatusTip('Open a new Image')
         self.open_action.triggered.connect(self.open_Image)
 
-        self.save_action = QAction(QIcon('assets/save.png'), 'S&ave', self)
+        self.save_action = QAction(
+            QIcon('assets/save.png'), 'S&ave', self)
         self.save_action.setShortcut('Ctrl+S')
         self.save_action.setStatusTip('Save Image')
         self.save_action.triggered.connect(self.save_Image)
 
-        self.print_action = QAction(QIcon('assets/print.png'), 'Print', self)
+        self.print_action = QAction(
+            QIcon('assets/print.png'), 'Print', self)
         self.print_action.setShortcut('Ctrl+P')
         self.print_action.setStatusTip('Print Image')
         self.print_action.triggered.connect(self.print_Image)
 
-        self.exit_action = QAction(QIcon('assets/exit.png'), 'Exit', self)
+        self.exit_action = QAction(
+            QIcon('assets/exit.png'), 'Exit', self)
         self.exit_action.setShortcut('Ctrl+Q')
         self.exit_action.setStatusTip('Quit Program')
         self.exit_action.triggered.connect(self.close)
 
-        self.clear_action = QAction(QIcon('assets/clear.png'), 'Clear Image', self)
+        self.clear_action = QAction(
+            QIcon('assets/clear.png'), 'Clear Image', self)
         self.clear_action.setShortcut('Ctrl+D')
         self.clear_action.setStatusTip('Clear the current Image')
         self.clear_action.triggered.connect(self.clear_Image)
@@ -78,7 +88,7 @@ class SimplePicEditor(QMainWindow):
         self.rotate180_action.setStatusTip('Rotate image 180° clockwise')
         self.rotate180_action.triggered.connect(self.rotate_image180)
 
-        self.hor_flip_action = QAction('Flip Horizontal°', self)
+        self.hor_flip_action = QAction('Flip Horizontal', self)
         self.hor_flip_action.setStatusTip('Flip Image across Horizontal axis')
         self.hor_flip_action.triggered.connect(self.flip_horizontal)
 
@@ -90,6 +100,12 @@ class SimplePicEditor(QMainWindow):
         self.resize_action.setStatusTip(
             'Resize Image to half the original size')
         self.resize_action.triggered.connect(self.resize_half)
+        
+        self.fit_to_window_action = QAction(
+            '&Fit to window', self, checkable=True)
+        self.fit_to_window_action.setEnabled(False)
+        self.fit_to_window_action.setShortcut('Ctrl+F')
+        self.fit_to_window_action.triggered.connect(self.fit_to_window)
 
         # Menu bar for the application
         bar_menu = self.menuBar()
@@ -106,7 +122,7 @@ class SimplePicEditor(QMainWindow):
 
         # create edit menu and add the actions above
         edit_menu = bar_menu.addMenu('Edit')
-        edit_menu.addAction(self.rotate180_action)
+        edit_menu.addAction(self.rotate90_action)
         edit_menu.addAction(self.rotate180_action)
         edit_menu.addSeparator()
         edit_menu.addAction(self.hor_flip_action)
@@ -118,9 +134,20 @@ class SimplePicEditor(QMainWindow):
 
         # Create view menu and add actions
         view_menu = bar_menu.addMenu('View')
+        view_menu.addAction(self.zoomIn_Action)
+        view_menu.addAction(self.zoomOut_Action)
+        view_menu.addAction(self.normalSize_Act)
+        view_menu.addSeparator()
+        view_menu.addAction(self.fit_to_window_action)
+        view_menu.addSeparator()
         view_menu.addAction(self.toggle_dock_tools_act)
         # Display info about tools, menu, and view in the status bar
         self.setStatusBar(QStatusBar(self))
+
+    def updateActions(self):
+        self.zoomIn_Act.setEnabled(not self.fit_to_window_action.isChecked())
+        self.zoomOut_Act.setEnabled(not self.fit_to_window_action.isChecked())
+        self.normalSize_Act.setEnabled(not self.fit_to_window_action.isChecked())
 
     def createToolBar(self):
         """Create toolbar for photo editor GUI"""
@@ -129,12 +156,12 @@ class SimplePicEditor(QMainWindow):
         self.addToolBar(tool_bar)
 
         # Add actions to toolbar
-        tool_bar.addAction(self.open_act)
-        tool_bar.addAction(self.save_act)
-        tool_bar.addAction(self.print_act)
-        tool_bar.addAction(self.clear_act)
+        tool_bar.addAction(self.open_action)
+        tool_bar.addAction(self.save_action)
+        tool_bar.addAction(self.print_action)
+        tool_bar.addAction(self.clear_action)
         tool_bar.addSeparator()
-        tool_bar.addAction(self.exit_act)
+        tool_bar.addAction(self.exit_action)
 
     def createToolsDockWidget(self):
         """Use View -> Edit Image Tools menu and click the dock widget on or off.
@@ -172,13 +199,13 @@ class SimplePicEditor(QMainWindow):
         self.resize_half_btn.clicked.connect(self.resize_half)
         # Set up vertical layout to contain all the push buttons
         dock_v_box = QVBoxLayout()
-        dock_v_box.addWidget(self.rotate90)
-        dock_v_box.addWidget(self.rotate180)
+        dock_v_box.addWidget(self.rotate90_btn)
+        dock_v_box.addWidget(self.rotate180_btn)
         dock_v_box.addStretch(1)
-        dock_v_box.addWidget(self.flip_horizontal)
-        dock_v_box.addWidget(self.flip_vertical)
+        dock_v_box.addWidget(self.flip_horizontal_btn)
+        dock_v_box.addWidget(self.flip_vertical_btn)
         dock_v_box.addStretch(1)
-        dock_v_box.addWidget(self.resize_half)
+        dock_v_box.addWidget(self.resize_half_btn)
         dock_v_box.addStretch(6)
         # Set the main layout for the QWidget, tools_contents,
         # then set the main widget of the dock widget
@@ -195,13 +222,19 @@ class SimplePicEditor(QMainWindow):
         """
         self.image = QPixmap()
         self.image_label = QLabel()
+        self.scrollArea = QScrollArea()
         self.image_label.setAlignment(Qt.AlignCenter)
         # Use setSizePolicy to specify how the widget can be resized,
         # horizontally and vertically. Here, the image will stretch
         # horizontally, but not vertically.
+        self.image_label.setBackgroundRole(QPalette.Base)
         self.image_label.setSizePolicy(
             QSizePolicy.Expanding, QSizePolicy.Ignored)
-        self.setCentralWidget(self.image_label)
+        self.image_label.setScaledContents(True)
+        self.scrollArea.setBackgroundRole(QPalette.Dark)
+        self.scrollArea.setWidget(self.image_label)
+        self.scrollArea.setVisible(False)
+        self.setCentralWidget(self.scrollArea)
 
     def open_Image(self):
         """
@@ -221,6 +254,9 @@ class SimplePicEditor(QMainWindow):
         else:
             QMessageBox.information(
                 self, "Error", "Unable to open image.", QMessageBox.Ok)
+        self.scaleFactor = 1.0
+        self.scrollArea.setVisible(True)
+        self.fit_to_window_action.setEnabled(True)
         self.print_action.setEnabled(True)
 
     def save_Image(self):
@@ -244,6 +280,14 @@ class SimplePicEditor(QMainWindow):
         """
         self.image_label.clear()
         self.image = QPixmap()  # reset pixmap so that isNull() = True
+
+    def fit_to_window(self):
+        fit_to_window = self.fit_to_window_action.isChecked()
+        self.scrollArea.setWidgetResizable(fit_to_window)
+        if not fit_to_window:
+            self.normalSize()
+
+        self.updateActions()
 
     def print_Image(self):
         """
@@ -321,7 +365,7 @@ class SimplePicEditor(QMainWindow):
         """
         Mirror the image across the horizontal axis
         """
-        if self.image.isNull() is False:
+        if not self.image.isNull():
             flip_h = QTransform().scale(-1, 1)
             pixmap = QPixmap(self.image)
             flipped = pixmap.transformed(flip_h)
@@ -334,4 +378,78 @@ class SimplePicEditor(QMainWindow):
         else:
             # no image flip
             pass
-        
+
+    def flip_vertical(self):
+        """
+        Mirror the image across the Vertical axis
+        """
+        if not self.image.isNull():
+            flip_v = QTransform().scale(1, -1)
+            pixmap = QPixmap(self.image)
+            flipped = pixmap.transformed(flip_v)
+            self.image_label.setPixmap(
+                flipped.scaled(
+                    self.image_label.size(),
+                    Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            self.image = QPixmap(flipped)
+            self.image_label.repaint()
+        else:
+            # no image flip
+            pass
+
+    def resize_half(self):
+        """
+        Resize the image to half its current size.
+        """
+        if not self.image.isNull():
+            resize = QTransform().scale(0.5, 0.5)
+            pixmap = QPixmap(self.image)
+            resized = pixmap.transformed(resize)
+            self.image_label.setPixmap(
+                resized.scaled(self.image_label.size(),
+                               Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            self.image = QPixmap(resized)
+            self.image_label.repaint()
+        else:
+            # no image to resize
+            pass
+
+    def scaleImage(self, factor):
+        self.scaleFactor *= factor
+        self.image_label.resize(
+            self.scaleFactor * self.image_label.pixmap().size())
+
+        self.adjustScrollBar(self.scrollArea.horizontalScrollBar(), factor)
+        self.adjustScrollBar(self.scrollArea.verticalScrollBar(), factor)
+
+        self.zoomIn_Act.setEnabled(self.scaleFactor < 3.0)
+        self.zoomOut_Act.setEnabled(self.scaleFactor > 0.333)
+
+    def centerMainWindow(self):
+        """
+        Use QDesktopWidget class to access information about your screen
+        and use it to center the application window.
+        """
+        desktop = QDesktopWidget().screenGeometry()
+        screen_width = desktop.width()
+        screen_height = desktop.height()
+        self.move(
+            math.ceil((screen_width - self.width()) / 2),
+            math.ceil((screen_height - self.height()) / 2))
+
+
+# main function to run the program and call the pic Editor
+def main():
+    app = QApplication(sys.argv)
+    app.setAttribute(Qt.AA_DontShowIconsInMenus, True)
+    win = SimplePicEditor()
+    sys.exit(app.exec())
+
+
+if __name__ == '__main__':
+    main()
+
+# Improvements:
+# https://gist.github.com/acbetter/32c575803ec361c3e82064e60db4e3e0
+# https://github.com/baoboa/pyqt5/blob/master/examples/widgets/imageviewer.py
+# https://gist.github.com/acbetter/e7d0c600fdc0865f4b0ee05a17b858f2

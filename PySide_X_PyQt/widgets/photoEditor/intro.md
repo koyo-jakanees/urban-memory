@@ -13,3 +13,8 @@ Book: Beginning PyQt
 [main.py](./main.py) is the app photo gui editor for the project.
 
 Note: icons used are sought randomly from internet and are subject to licensing by their authors.
+Improvements to Image Editor:
+
+ -  add zoomIn, zoomOut and pan actions.
+ -  add scroll area if image is too large.
+[gist](https://gist.github.com/acbetter/32c575803ec361c3e82064e60db4e3e0)
