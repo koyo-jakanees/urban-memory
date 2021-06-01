@@ -15,7 +15,11 @@ from PyQt5.QtWidgets import (
     QDesktopWidget,
     QMessageBox,
     QSizePolicy,
-    QToolBar
+    QDockWidget,
+    QToolBar,
+    QStatusBar,
+    QPushButton,
+    QVBoxLayout
 )
 
 
@@ -39,7 +43,7 @@ class SimplePicEditor(QMainWindow):
     def createMenu(self):
         """Generate Menu elements for the editor GUI"""
         # create menu actions for file menu: open, save and print image.
-        self.open_action = QAction(QIcon('assets/open.png'), 'Open', self)
+        self.open_action = QAction(QIcon('assets/open.png'), '&Open', self)
         self.open_action.setShortcut('Ctrl+O')
         self.open_action.setStatusTip('Open a new Image')
         self.open_action.triggered.connect(self.open_Image)
@@ -49,7 +53,210 @@ class SimplePicEditor(QMainWindow):
         self.save_action.setStatusTip('Save Image')
         self.save_action.triggered.connect(self.save_Image)
 
-        self.print_action = QAction(QIcon('assets/print.png'), 'S&ave', self)
+        self.print_action = QAction(QIcon('assets/print.png'), 'Print', self)
         self.print_action.setShortcut('Ctrl+P')
         self.print_action.setStatusTip('Print Image')
         self.print_action.triggered.connect(self.print_Image)
+
+        self.exit_action = QAction(QIcon('assets/exit.png'), 'Exit', self)
+        self.exit_action.setShortcut('Ctrl+Q')
+        self.exit_action.setStatusTip('Quit Program')
+        self.exit_action.triggered.connect(self.close)
+
+        self.clear_action = QAction(QIcon('assets/clear.png'), 'Clear Image', self)
+        self.clear_action.setShortcut('Ctrl+D')
+        self.clear_action.setStatusTip('Clear the current Image')
+        self.clear_action.triggered.connect(self.clear_Image)
+
+        # edit menu actions i.e rotating, flipping actions
+
+        self.rotate90_action = QAction('Rotate 90°', self)
+        self.rotate90_action.setStatusTip('Rotate image 90° clockwise')
+        self.rotate90_action.triggered.connect(self.rotate_image90)
+
+        self.rotate180_action = QAction('Rotate 180°', self)
+        self.rotate180_action.setStatusTip('Rotate image 180° clockwise')
+        self.rotate180_action.triggered.connect(self.rotate_image180)
+
+        self.hor_flip_action = QAction('Flip Horizontal°', self)
+        self.hor_flip_action.setStatusTip('Flip Image across Horizontal axis')
+        self.hor_flip_action.triggered.connect(self.flip_horizontal)
+
+        self.vert_flip_action = QAction('Flip Vertical', self)
+        self.vert_flip_action.setStatusTip('Flip Image across Vertical Axis')
+        self.vert_flip_action.triggered.connect(self.flip_vertical)
+
+        self.resize_action = QAction('Resize Half', self)
+        self.resize_action.setStatusTip(
+            'Resize Image to half the original size')
+        self.resize_action.triggered.connect(self.resize_half)
+
+        # Menu bar for the application
+        bar_menu = self.menuBar()
+        bar_menu.setNativeMenuBar(False)
+
+        # create file menu and add the actions above
+        file_menu = bar_menu.addMenu('File')
+        file_menu.addAction(self.open_action)
+        file_menu.addAction(self.save_action)
+        file_menu.addSeparator()
+        file_menu.addAction(self.print_action)
+        file_menu.addSeparator()
+        file_menu.addAction(self.exit_action)
+
+        # create edit menu and add the actions above
+        edit_menu = bar_menu.addMenu('Edit')
+        edit_menu.addAction(self.rotate180_action)
+        edit_menu.addAction(self.rotate180_action)
+        edit_menu.addSeparator()
+        edit_menu.addAction(self.hor_flip_action)
+        edit_menu.addAction(self.vert_flip_action)
+        edit_menu.addSeparator()
+        edit_menu.addAction(self.resize_action)
+        edit_menu.addSeparator()
+        edit_menu.addAction(self.clear_action)
+
+        # Create view menu and add actions
+        view_menu = bar_menu.addMenu('View')
+        view_menu.addAction(self.toggle_dock_tools_act)
+        # Display info about tools, menu, and view in the status bar
+        self.setStatusBar(QStatusBar(self))
+
+    def createToolBar(self):
+        """Create toolbar for photo editor GUI"""
+        tool_bar = QToolBar("Photo Editor Toolbar")
+        tool_bar.setIconSize(QSize(24, 24))
+        self.addToolBar(tool_bar)
+
+        # Add actions to toolbar
+        tool_bar.addAction(self.open_act)
+        tool_bar.addAction(self.save_act)
+        tool_bar.addAction(self.print_act)
+        tool_bar.addAction(self.clear_act)
+        tool_bar.addSeparator()
+        tool_bar.addAction(self.exit_act)
+
+    def createToolsDockWidget(self):
+        """Use View -> Edit Image Tools menu and click the dock widget on or off.
+        Tools dock can be placed on the left or right of the main window.
+        """
+        # Set up QDockWidget
+        self.dock_tools_view = QDockWidget()
+        self.dock_tools_view.setWindowTitle("Edit Image Tools")
+        self.dock_tools_view.setAllowedAreas(
+            Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+        # Create container QWidget to hold all widgets inside dock widget
+        self.tools_contents = QWidget()
+        # Create tool push buttons
+        self.rotate90 = QPushButton("Rotate 90°")
+        self.rotate90.setMinimumSize(QSize(130, 40))
+        self.rotate90.setStatusTip('Rotate image 90° clockwise')
+        self.rotate90.clicked.connect(self.rotateImage90)
+        self.rotate180 = QPushButton("Rotate 180°")
+        self.rotate180.setMinimumSize(QSize(130, 40))
+        self.rotate180.setStatusTip('Rotate image 180° clockwise')
+        self.rotate180.clicked.connect(self.rotateImage180)
+        self.flip_horizontal = QPushButton("Flip Horizontal")
+        self.flip_horizontal.setMinimumSize(QSize(130, 40))
+        self.flip_horizontal.setStatusTip(
+            'Flip image across horizontal axis')
+        self.flip_horizontal.clicked.connect(self.hor_flip_action)
+        self.flip_vertical = QPushButton("Flip Vertical")
+        self.flip_vertical.setMinimumSize(QSize(130, 40))
+        self.flip_vertical.setStatusTip('Flip image across vertical axis')
+        self.flip_vertical.clicked.connect(self.vert_flip_action)
+        self.resize_half = QPushButton("Resize Half")
+        self.resize_half.setMinimumSize(QSize(130, 40))
+        self.resize_half.setStatusTip('Resize image to half the original size')
+        self.resize_half.clicked.connect(self.resize_half)
+        # Set up vertical layout to contain all the push buttons
+        dock_v_box = QVBoxLayout()
+        dock_v_box.addWidget(self.rotate90)
+        dock_v_box.addWidget(self.rotate180)
+        dock_v_box.addStretch(1)
+        dock_v_box.addWidget(self.flip_horizontal)
+        dock_v_box.addWidget(self.flip_vertical)
+        dock_v_box.addStretch(1)
+        dock_v_box.addWidget(self.resize_half)
+        dock_v_box.addStretch(6)
+        # Set the main layout for the QWidget, tools_contents,
+        # then set the main widget of the dock widget
+        self.tools_contents.setLayout(dock_v_box)
+        self.dock_tools_view.setWidget(self.tools_contents)
+        # Set initial location of dock widget
+        self.addDockWidget(Qt.RightDockWidgetArea, self.dock_tools_view)
+        # Handles the visibility of the dock widget 
+        self.toggle_dock_tools_act = self.dock_tools_view.toggleViewAction()
+
+    def photoEditorWidgets(self):
+        """
+        Set up instances of widgets for photo editor GUI
+        """
+        self.image = QPixmap()
+        self.image_label = QLabel()
+        self.image_label.setAlignment(Qt.AlignCenter)
+        # Use setSizePolicy to specify how the widget can be resized,
+        # horizontally and vertically. Here, the image will stretch
+        # horizontally, but not vertically.
+        self.image_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Ignored)
+        self.setCentralWidget(self.image_label)
+
+    def openImage(self):
+        """
+        Open an image file and display its contents in label widget.
+        Display error message if image can't be opened.
+        """
+        image_file, _ = QFileDialog.getOpenFileName(
+            self, "Open Image", "",
+            "JPG Files (*.jpeg *.jpg );;PNG Files (*.png);;Bitmap Files(*.bmp);;\
+                GIF Files (*.gif)")
+        if image_file:
+            self.image = QPixmap(image_file)
+            self.image_label.setPixmap(
+                self.image.scaled(
+                    self.image_label.size(),
+                    Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        else:
+            QMessageBox.information(
+                self, "Error", "Unable to open image.", QMessageBox.Ok)
+        self.print_action.setEnabled(True)
+
+    def saveImage(self):
+        """
+        Save the image.
+        Display error message if image can't be saved.
+        """
+        image_file, _ = QFileDialog.getSaveFileName(
+            self, "Save Image", "",
+            "JPG Files (*.jpeg *.jpg );;PNG Files (*.png);;Bitmap Files(*.bmp);;\
+            GIF Files (*.gif)")
+        if image_file and self.image.isNull() is False:
+            self.image.save(image_file)
+        else:
+            QMessageBox.information(self, "Error", "Unable to save image.",
+                                    QMessageBox.Ok)
+
+    def printImage(self):
+        """
+        Print image.
+        """
+        # Create printer object and print output defined by the platform
+        # the program is being run on.
+        # QPrinter.NativeFormat is the default
+        printer = QPrinter()
+        printer.setOutputFormat(QPrinter.NativeFormat)
+        # Create printer dialog to configure printer
+        print_dialog = QPrintDialog(printer)
+        # If the dialog is accepted by the user, begin printing
+        if (print_dialog.exec_() == QPrintDialog.Accepted):
+            # Use QPainter to output a PDF file
+            painter = QPainter()
+            # Begin painting device
+            painter.begin(printer)
+            # Set QRect to hold painter's current viewport, which
+            # is the image_label
+            rect = QRect(painter.viewport())
+            # Get the size of image_label and use it to set the size
+            # of the viewport
+            size = QSize(self.image_label.pixmap().size())
+            size.scale(rect.size(), Qt.KeepAspectRatio)
