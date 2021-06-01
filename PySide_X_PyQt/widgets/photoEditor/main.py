@@ -39,14 +39,14 @@ class SimplePicEditor(QMainWindow):
         self.centerMainWindow()
         self.createToolsDockWidget()
         self.createMenu()
-        self.createActions()
+        # self.createActions()
         self.createToolBar()
         self.photoEditorWidgets()
         self.resize(800, 800)
 
         self.show()
 
-    def createActions(self):
+    def createMenu(self):
         """Generate Menu elements for the editor GUI"""
         # create menu actions for file menu: open, save and print image.
         self.open_action = QAction(
@@ -117,11 +117,15 @@ class SimplePicEditor(QMainWindow):
         self.zoomOut_action.setEnabled(False)
         self.zoomOut_action.setShortcut('Ctrl+-')
         self.zoomOut_action.triggered.connect(self.zoomOut)
-        
-        self.about_action = QAction("&About", self, triggered=self.about)
-        self.aboutQt_action = QAction("About &Qt", self, triggered=qApp.aboutQt)
 
-    def creatMenu(self):
+        self.about_action = QAction('&About', self, triggered=self.about)
+        self.aboutQt_action = QAction(
+            'About &Qt', self, triggered=qApp.aboutQt)
+
+        self.normalSize_action = QAction(
+            '&Normal Size', self, shortcut="Ctrl+S", enabled=False,
+            triggered=self.normalSize)
+
         # Menu bar for the application
         bar_menu = self.menuBar()
         bar_menu.setNativeMenuBar(False)
@@ -161,7 +165,7 @@ class SimplePicEditor(QMainWindow):
         help_menu = bar_menu.addMenu()
         help_menu.addAction(self.about_action)
         help_menu.addSeparator()
-        help_menu.addAction(self.about_action)
+        help_menu.addAction(self.aboutQt_action)
         # Display info about tools, menu, and view in the status bar
         self.setStatusBar(QStatusBar(self))
 
@@ -319,6 +323,25 @@ class SimplePicEditor(QMainWindow):
     def normalSize(self):
         self.image_label.adjustSize()
         self.scaleFactor = 1.0
+
+    def about(self):
+        QMessageBox.about(
+            self, 'About Simple Pic Editor',
+            '<p>The <b>Simple Pic</b> Editor shows how to use different'
+            'widgets offere in Qt bindings to python to create a simple'
+            'image editor and viewer.</p>'
+            'QLabel and QScrollArea to display an image. QLabel is '
+            'typically used for displaying text, but it can also display'
+            'an image. QScrollArea provides a scrolling view around'
+            'another widget. If the child widget exceeds the size of the '
+            'frame, QScrollArea automatically provides scroll bars.</p>'
+            '<p>The example demonstrates how QLabel"s ability to scale '
+            'its contents (QLabel.scaledContents), and QScrollArea"s'
+            'ability to automatically resize its contents '
+            '(QScrollArea.widgetResizable), can be used to implement '
+            'zooming and scaling features.</p>'
+            '<p>In addition the example shows how to use QPainter to '
+            'print an image.</p>')
 
     def print_Image(self):
         """
