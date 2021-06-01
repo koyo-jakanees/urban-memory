@@ -39,13 +39,14 @@ class SimplePicEditor(QMainWindow):
         self.centerMainWindow()
         self.createToolsDockWidget()
         self.createMenu()
+        self.createActions()
         self.createToolBar()
         self.photoEditorWidgets()
         self.resize(800, 800)
 
         self.show()
 
-    def createMenu(self):
+    def createActions(self):
         """Generate Menu elements for the editor GUI"""
         # create menu actions for file menu: open, save and print image.
         self.open_action = QAction(
@@ -100,13 +101,27 @@ class SimplePicEditor(QMainWindow):
         self.resize_action.setStatusTip(
             'Resize Image to half the original size')
         self.resize_action.triggered.connect(self.resize_half)
-        
+
         self.fit_to_window_action = QAction(
             '&Fit to window', self, checkable=True)
         self.fit_to_window_action.setEnabled(False)
         self.fit_to_window_action.setShortcut('Ctrl+F')
         self.fit_to_window_action.triggered.connect(self.fit_to_window)
 
+        self.zoomIn_action = QAction('Zoom &In (25%)', self)
+        self.zoomIn_action.setEnabled(False)
+        self.zoomIn_action.setShortcut('Ctrl++')
+        self.zoomIn_action.triggered.connect(self.zoomIn)
+
+        self.zoomOut_action = QAction('Zoom &Out (25%)', self)
+        self.zoomOut_action.setEnabled(False)
+        self.zoomOut_action.setShortcut('Ctrl+-')
+        self.zoomOut_action.triggered.connect(self.zoomOut)
+        
+        self.about_action = QAction("&About", self, triggered=self.about)
+        self.aboutQt_action = QAction("About &Qt", self, triggered=qApp.aboutQt)
+
+    def creatMenu(self):
         # Menu bar for the application
         bar_menu = self.menuBar()
         bar_menu.setNativeMenuBar(False)
@@ -134,13 +149,19 @@ class SimplePicEditor(QMainWindow):
 
         # Create view menu and add actions
         view_menu = bar_menu.addMenu('View')
-        view_menu.addAction(self.zoomIn_Action)
-        view_menu.addAction(self.zoomOut_Action)
-        view_menu.addAction(self.normalSize_Act)
+        view_menu.addAction(self.zoomIn_action)
+        view_menu.addAction(self.zoomOut_action)
+        view_menu.addAction(self.normalSize_action)
         view_menu.addSeparator()
         view_menu.addAction(self.fit_to_window_action)
         view_menu.addSeparator()
         view_menu.addAction(self.toggle_dock_tools_act)
+
+        # create help menu and actions
+        help_menu = bar_menu.addMenu()
+        help_menu.addAction(self.about_action)
+        help_menu.addSeparator()
+        help_menu.addAction(self.about_action)
         # Display info about tools, menu, and view in the status bar
         self.setStatusBar(QStatusBar(self))
 
@@ -289,6 +310,16 @@ class SimplePicEditor(QMainWindow):
 
         self.updateActions()
 
+    def zoomIn(self):
+        self.scaleImage(1.25)
+
+    def zoomOut(self):
+        self.scaleImage(0.8)
+
+    def normalSize(self):
+        self.image_label.adjustSize()
+        self.scaleFactor = 1.0
+
     def print_Image(self):
         """
         Print image.
@@ -406,8 +437,9 @@ class SimplePicEditor(QMainWindow):
             pixmap = QPixmap(self.image)
             resized = pixmap.transformed(resize)
             self.image_label.setPixmap(
-                resized.scaled(self.image_label.size(),
-                               Qt.KeepAspectRatio, Qt.SmoothTransformation))
+                resized.scaled(
+                    self.image_label.size(),
+                    Qt.KeepAspectRatio, Qt.SmoothTransformation))
             self.image = QPixmap(resized)
             self.image_label.repaint()
         else:
@@ -424,6 +456,10 @@ class SimplePicEditor(QMainWindow):
 
         self.zoomIn_Act.setEnabled(self.scaleFactor < 3.0)
         self.zoomOut_Act.setEnabled(self.scaleFactor > 0.333)
+
+    def adjustScrollBar(self, scrollBar, factor):
+        scrollBar.setValue(int(factor * scrollBar.value()
+                               + ((factor - 1) * scrollBar.pageStep() / 2)))
 
     def centerMainWindow(self):
         """
