@@ -17,8 +17,13 @@ Improvements to Image Editor:
 
 - add zoomIn, zoomOut and pan actions.
 - add scroll area if image is too large.
+- MDI image viewer and sync  multiple images
 
-[gist](https://gist.github.com/acbetter/32c575803ec361c3e82064e60db4e3e0)
+**ideas and improvements**
+[@baoboa image viewer](https://github.com/baoboa/pyqt5/blob/master/examples/widgets/imageviewer.py)
+[@acbetter Image Viewer.py](https://gist.github.com/acbetter/32c575803ec361c3e82064e60db4e3e0)
+[@acbetter QImageViewSync.py](https://gist.github.com/acbetter/e7d0c600fdc0865f4b0ee05a17b858f2)
+[MDI Image Viewer](http://tpgit.github.io/MDIImageViewer/imageviewer.html)
 
 snapshot of application
 ![simplePicEditor](assets/app_v1.png)
