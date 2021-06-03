@@ -6,13 +6,13 @@
 use std::env;
 use std::ffi::OsString;
 use std::error::Error;
-use std::io;
+// use std::io;
 use std::fs::File;
 use std::process;
 
 // the 'main' function where the program starts
 fn main() {
-    println!("Hello, world!");
+
     if let Err(err) = run() {
         println!("{}", err);
         process::exit(1);
@@ -28,8 +28,17 @@ fn get_first_arg() -> Result<OsString, Box<dyn Error>>{
 
 fn run() -> Result<(), Box<dyn Error>> {
     let file_path = get_first_arg()?;
-    let file = File::open(file_path);
-    let mut reader = csv::Reader::from_reader(io::stdin());
+    let file = File::open(file_path)?;
+    // let mut reader = csv::Reader::from_reader(file);
+    let mut reader = csv::ReaderBuilder::new()
+        .has_headers(true)
+        .from_reader(file);
+    // or conviniently use  csv::Reader::from_path to automatically open file path.
+    // {
+    //     // nest headers in their own scope coz of rust lifetimes
+    //     let headers = reader.headers()?;
+    //     println!("{:?}", headers);
+    // }
 
     // loop over each record in the file
     for result in reader.records() {
@@ -46,5 +55,9 @@ fn run() -> Result<(), Box<dyn Error>> {
         //     }
         // }
     }
+    // We can ask for the headers at any time. There's no need to nest this
+    // call in its own scope because we never try to borrow the reader again.
+    let headers = reader.headers()?.clone();
+    println!("Headers: {:?}", headers);
     Ok(())
 }
