@@ -31,7 +31,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let file = File::open(file_path)?;
     // let mut reader = csv::Reader::from_reader(file);
     let mut reader = csv::ReaderBuilder::new()
-        .has_headers(false)
+        .has_headers(true)
         .delimiter(b';')
         .double_quote(false)
         .escape(Some(b'\\'))
