@@ -8,6 +8,7 @@ import sqlite3
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
+
 def dict_factory(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):
