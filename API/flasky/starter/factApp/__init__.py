@@ -8,7 +8,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-from factApp import  views
+from app import  views
 
 """To avoid circular dependency issues,
 we must import views after creating the app variable,
