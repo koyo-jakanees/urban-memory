@@ -76,3 +76,8 @@ public:
         std::cout << "TIMING: " << time << " ms (" << label << ")" << std::endl;
     }
 };
+// transfer data from host to device
+void transfer_data_to_device(cudaPitchedPtr<uint64_t, 1> & devPtr, uint64_t * data, size_t size) {
+    check_last_error( );
+    cudaMemcpy(devPtr.ptr, data, size, cudaMemcpyHostToDevice);
+}
