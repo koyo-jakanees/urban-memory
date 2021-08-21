@@ -4,3 +4,6 @@
 [submodule "SSG-hugo/anotherdemo/themes/tranquilpeak"]
 	path = SSG-hugo/anotherdemo/themes/tranquilpeak
 	url = https://github.com/kakawait/hugo-tranquilpeak-theme.git
+[submodule "rustacean/rustacean/RustyRockets"]
+	path = rustacean/rustacean/RustyRockets
+	url = git@github.com:rstropek/RustyRockets.git
