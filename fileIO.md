@@ -4,7 +4,7 @@
 
 tutorial source [smithEdu](http://www.science.smith.edu/dftwiki/index.php/PyQt5_Tutorial:_A_Window_Application_with_File_IO)
 
-Personal prference to type word for word to help in futher internalising what is going around.
+Personal preference to type word for word to help in futher internalising what is going around.
 feel free to dowload modify: Better yet check the original tutorial
 tweak the files.
 basic oop python knowledge is fit
