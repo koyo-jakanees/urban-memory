@@ -1,8 +1,8 @@
 import sys
 
 import pandas as pd
-from PySide2.QtWidgets import QApplication
-from QtPandas.QDataFrame import QDataFrame
+from PyQt5.QtWidgets import QApplication
+from QtPandas.QtPandas import QDataFrame
 
 if __name__ == "__main__":
     app = QApplication()
