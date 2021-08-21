@@ -60,8 +60,17 @@ class TableViewFramework(QMainWindow):
         quit_act.setShortcut('Ctrl+Q')
         quit_act.triggered.connect(self.close)
         
+        # copy & paste actions
+        self.copy_cell = QAction('Copy', self)
+        self.copy_cell.setShortcut('Ctrl+c')
+        self.copy_cell.triggered.connect(self.copyItem)
+        self.paste_cell = QAction('Paste', self)
+        self.paste_cell.setShortcut('Ctrl+v')
+        self.paste_cell.triggered.connect(self.copyItem)
+        
         # Create table menu actions
         self.add_row_above_act = QAction("Add Row Above", self)
+        self.add_row_above_act.setShortcut("Ctrl++")
         self.add_row_above_act.triggered.connect(self.addRowAbove)
         self.add_row_below_act = QAction("Add Row Below", self)
         self.add_row_below_act.triggered.connect(self.addRowBelow)
@@ -108,8 +117,8 @@ class TableViewFramework(QMainWindow):
         context_menu.addAction(self.delete_row_act)
         context_menu.addAction(self.delete_col_act)
         context_menu.addSeparator()
-        copy_act = context_menu.addAction("Copy")
-        paste_act = context_menu.addAction("Paste")
+        context_menu.addAction(self.copy_cell)
+        context_menu.addAction(self.paste_cell)
         context_menu.addSeparator()
         context_menu.addAction(self.clear_table_act)
         
@@ -122,12 +131,25 @@ class TableViewFramework(QMainWindow):
         
         # To check for actions selected in the context menu that were not
         # created in the menu bar.
-        if action == copy_act:
+        if action == self.copy_cell:
             self.copyItem()
-        if action == paste_act:
+        if action == self.paste_cell:
             self.pasteItem()
         else:
             pass
+
+    def keyPressEvent(self, event):
+        """using key events to paste items
+        ref:https://stackoverflow.com/questions/60715462/how-to-copy-and-paste-multiple-cells-in-qtablewidget-in-pyqt5
+        """
+        super().keyPressEvent(event)
+        if event.key() == QtCore.Qt.Key_C and (event.modifiers() & QtCore.Qt.ControlModifier):
+            self.copied_cells = sorted(self.table_wdgt.selectedIndexes())
+        elif event.key() == QtCore.Qt.Key_V and (event.modifiers() & QtCore.Qt.ControlModifier):
+            r = self.table_wdgt.currentRow() - self.copied_cells[0].row()
+            c = self.table_wdgt.currentColumn() - self.copied_cells[0].column()
+            for cell in self.copied_cells:
+                self.table_wdgt.setItem(cell.row() + r, cell.column() + c, QTableWidgetItem(cell.data()))
 
     def copyItem(self):
         """
