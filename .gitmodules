@@ -7,3 +7,6 @@
 [submodule "rustacean/rustacean/RustyRockets"]
 	path = rustacean/rustacean/RustyRockets
 	url = git@github.com:rstropek/RustyRockets.git
+[submodule "rustacean/RustyRockets"]
+	path = rustacean/RustyRockets
+	url = git@github.com:rstropek/RustyRockets.git
