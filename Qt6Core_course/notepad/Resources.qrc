@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/settings.png</file>
+        <file>icons/refresh.png</file>
+        <file>icons/list.png</file>
+        <file>icons/home.png</file>
+        <file>icons/envelope.png</file>
+        <file>icons/document.png</file>
+        <file>icons/add.png</file>
+    </qresource>
+</RCC>
