@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "summarize-dataframe"
+version = "0.1.0"
+description = ""
+authors = ["koyo-jakanees <dakoyo094@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "summarize_dataframe" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.1.2"
+numpy = "^1.23.0"
+pandas = "^1.4.3"
+pre-commit = "^2.19.0"
+black = "^22.3.0"
+flake8 = "^4.0.1"
+pylint = "^2.14.3"
+tox = "^3.25.0"
+pyparsing = "^3.0.9"
+attrs = "^21.4.0"
+more-itertools = "^8.13.0"
+packaging = "^21.3"
+pluggy = "^1.0.0"
+py = "^1.11.0"
+wcwidth = "^0.2.5"
+
+
+[tool.poetry.group.doc.dependencies]
+furo = "^2022.6.21"
+myst-parser = "^0.18.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
